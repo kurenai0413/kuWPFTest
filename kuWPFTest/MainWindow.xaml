@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kuWPFTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="810" Width="1624">
+    <Grid Background="Black" Margin="0,0,-0.4,-98">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1256*"/>
+            <ColumnDefinition Width="141*"/>
+            <ColumnDefinition Width="36*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Left" Margin="39,33,0,804" TextWrapping="Wrap" Height="41" Width="327" Foreground="Yellow" FontSize="24" TextAlignment="Center" Text="Test"/>
+        <WindowsFormsHost HorizontalAlignment="Left" Height="720" Margin="39,113,0,0" VerticalAlignment="Top" Width="1280" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
