@@ -98,5 +98,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\kuOpenCVClassWrapper\kuOpenCVClassWrapper.vcxproj">
+      <Project>{a5a13995-04a8-4b19-8b9a-995b82200aa3}</Project>
+      <Name>kuOpenCVWrapperClass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
