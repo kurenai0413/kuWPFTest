@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using kuOpenCVWrapper;
+using System.Runtime.InteropServices;
 
 namespace kuWPFTest
 {
@@ -21,9 +22,19 @@ namespace kuWPFTest
     /// </summary>
     public partial class MainWindow : Window
     {
+        int testCnt = 0;
+
+        //private kuOpenCVWrapperClass openCVWrapperObj = new kuOpenCVWrapperClass();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            testCnt++;
+            TestTextBlock.Text = "test num: " + testCnt.ToString();
         }
     }
 }

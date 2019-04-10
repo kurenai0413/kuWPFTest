@@ -28,7 +28,6 @@ void main()
 	//	kuOpenCVClassObj.kuShowImage();
 	//}
 
-	
 	/*bool camFlag = kuOpenCVClassObj.kuStartCamera(0);
 
 	while (camFlag)

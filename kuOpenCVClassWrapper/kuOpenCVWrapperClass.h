@@ -14,6 +14,9 @@ namespace kuOpenCVWrapper
 		bool kuGetCamframe();
 		bool kuGetCameraStatus();
 
+		void kuCreateWindow(System::String ^ windowName);
+		void kuCreateWindow(System::String ^ windowName, int wndWidth, int wndHeight);
+
 		bool kuLoadImage(std::string filename);
 		void kuSetImageDefault();
 		void kuShowImage();

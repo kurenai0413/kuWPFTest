@@ -6,11 +6,13 @@ KUOPENCVCLASSTEST_API kuOpenCVNativeClass::kuOpenCVNativeClass()
 
 	m_DefaultWidth  = 640;
 	m_DefaultHeight = 480;
+
+	std::cout << "Native constructor called." << std::endl;
 }
 
 KUOPENCVCLASSTEST_API kuOpenCVNativeClass::~kuOpenCVNativeClass()
 {
-
+	
 }
 
 KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetParentHWND(HWND parentHWND)
@@ -61,7 +63,11 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuLoadImage(std::string filePath)
 {
 	m_TestImage = cv::imread(filePath, 1);
-	//kuCreateWindow("Test Image");
+
+	if (!m_TestImage.empty())
+		return true;
+	else
+		return false;
 }
 
 KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetImageDefault()
@@ -77,8 +83,6 @@ KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuStartCamera(int cameraIdx)
 
 		if (m_CamCapture.isOpened())
 		{
-			// Start thread
-			// m_CameraThd = std::thread(&kuOpenCVClass::kuCameraThdFun, this);
 			m_CameraFlag = true;
 
 			return m_CameraFlag;

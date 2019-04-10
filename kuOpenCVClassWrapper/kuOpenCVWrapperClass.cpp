@@ -1,10 +1,15 @@
+#include <msclr\marshal.h>
+#include <msclr\marshal_cppstd.h>
+
 #include "kuOpenCVWrapperClass.h"
 
 using namespace kuOpenCVWrapper;
+using namespace msclr::interop;
 
-kuOpenCVWrapperClass::kuOpenCVWrapperClass() : kuOpenCVClassPtr(new kuOpenCVNativeClass())
+kuOpenCVWrapperClass::kuOpenCVWrapperClass()
 {
-	
+	kuOpenCVClassPtr = new kuOpenCVNativeClass;
+	std::cout << "Wrapper constructor called." << std::endl;
 }
 
 bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuStartCamera(int cameraIdx)
@@ -20,6 +25,18 @@ bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuGetCamframe()
 bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuGetCameraStatus()
 {
 	return kuOpenCVClassPtr->kuGetCameraStatus();
+}
+
+void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCreateWindow(System::String ^ windowName)
+{
+	std::string stdWindowName = marshal_as<std::string>(windowName);
+	kuOpenCVClassPtr->kuCreateWindow(stdWindowName);
+}
+
+void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCreateWindow(System::String ^ windowName, int wndWidth, int wndHeight)
+{
+	std::string stdWindowName = marshal_as<std::string>(windowName);
+	kuOpenCVClassPtr->kuCreateWindow(stdWindowName, wndWidth, wndHeight);
 }
 
 bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuLoadImage(std::string filename)
