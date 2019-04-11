@@ -24,7 +24,8 @@ namespace kuWPFTest
     {
         int testCnt = 0;
 
-        //private kuOpenCVWrapperClass openCVWrapperObj = new kuOpenCVWrapperClass();
+        kuOpenCVWrapperClass wrapperObj = new kuOpenCVWrapperClass();
+        
 
         public MainWindow()
         {
@@ -33,8 +34,23 @@ namespace kuWPFTest
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            testCnt++;
-            TestTextBlock.Text = "test num: " + testCnt.ToString();
+            wrapperObj.kuStartCamera(0);
+            wrapperObj.kuCreateWindow("TestView");
+
+            TestTextBlock.Text = "Camera started.";
+
+            while (true)
+            {
+                bool camFrameFlag = wrapperObj.kuGetCamframe();
+
+                if (camFrameFlag)
+                {
+                    wrapperObj.kuShowImage();
+                }
+            }
+
+            //testCnt++;
+            
         }
     }
 }

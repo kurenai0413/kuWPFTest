@@ -12,6 +12,12 @@ kuOpenCVWrapperClass::kuOpenCVWrapperClass()
 	std::cout << "Wrapper constructor called." << std::endl;
 }
 
+kuOpenCVWrapper::kuOpenCVWrapperClass::~kuOpenCVWrapperClass()
+{
+	delete kuOpenCVClassPtr;
+	kuOpenCVClassPtr = NULL;
+}
+
 bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuStartCamera(int cameraIdx)
 {
 	return kuOpenCVClassPtr->kuStartCamera(cameraIdx);
@@ -27,6 +33,11 @@ bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuGetCameraStatus()
 	return kuOpenCVClassPtr->kuGetCameraStatus();
 }
 
+void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCloseCamera()
+{
+	kuOpenCVClassPtr->kuCloseCamera(0);
+}
+
 void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCreateWindow(System::String ^ windowName)
 {
 	std::string stdWindowName = marshal_as<std::string>(windowName);
@@ -37,6 +48,11 @@ void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCreateWindow(System::String ^ wind
 {
 	std::string stdWindowName = marshal_as<std::string>(windowName);
 	kuOpenCVClassPtr->kuCreateWindow(stdWindowName, wndWidth, wndHeight);
+}
+
+void kuOpenCVWrapper::kuOpenCVWrapperClass::kuDestroyCurrentWindow()
+{
+	kuOpenCVClassPtr->kuDestroyCurrentWindow();
 }
 
 bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuLoadImage(std::string filename)

@@ -81,6 +81,7 @@
     <IncludePath>D:\Codes\WPF\kuWPFTest\kuOpenCVClassTest;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Codes\WPF\kuWPFTest\x64\Release;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_x64</TargetName>
+    <OutDir>..\kuWPFTest\bin\Release</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -100,7 +101,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kuOpenCVClassTest_x64.lib;opencv_world341_x64.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\kuWPFTest\bin\Release\kuOpenCVNativeClass_x64.lib;opencv_world341_x64.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

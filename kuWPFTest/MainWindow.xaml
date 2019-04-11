@@ -18,7 +18,7 @@
                        Text="Mouse Over for tooltip"/>
             <!--="This is a custom tooltip"-->
         </Border>
-        <Button Content="Button" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="323,31,0,0" VerticalAlignment="Top" Width="150" Height="40" FontSize="24" x:Name="TestButton" Click="TestButton_Click">
+        <Button Content="Open Camera" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="323,31,0,0" VerticalAlignment="Top" Width="248" Height="40" FontSize="18" x:Name="TestButton" Click="TestButton_Click">
         </Button>
         <WindowsFormsHost HorizontalAlignment="Left" Height="480" Margin="30,116,0,0" VerticalAlignment="Top" Width="640" Background="Ivory" Foreground="#FFFAF7F7"/>
     </Grid>

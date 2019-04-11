@@ -9,13 +9,16 @@ namespace kuOpenCVWrapper
 	{
 	public:
 		kuOpenCVWrapperClass();
+		~kuOpenCVWrapperClass();
 
 		bool kuStartCamera(int cameraIdx);
 		bool kuGetCamframe();
 		bool kuGetCameraStatus();
+		void kuCloseCamera();
 
 		void kuCreateWindow(System::String ^ windowName);
 		void kuCreateWindow(System::String ^ windowName, int wndWidth, int wndHeight);
+		void kuDestroyCurrentWindow();
 
 		bool kuLoadImage(std::string filename);
 		void kuSetImageDefault();
