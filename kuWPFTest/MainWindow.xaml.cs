@@ -24,12 +24,16 @@ namespace kuWPFTest
     {
         int testCnt = 0;
 
-        kuOpenCVWrapperClass wrapperObj = new kuOpenCVWrapperClass();
-        
+        kuOpenCVWrapperClass wrapperObj = new kuOpenCVWrapperClass();    
 
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        ~MainWindow()
+        {
+
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
@@ -51,6 +55,12 @@ namespace kuWPFTest
 
             //testCnt++;
             
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            wrapperObj.kuCloseCamera();
+            wrapperObj.kuDestroyCurrentWindow();
         }
     }
 }

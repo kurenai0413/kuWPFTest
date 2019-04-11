@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "kuOpenCVNativeClass.h"
 
 using namespace System;
