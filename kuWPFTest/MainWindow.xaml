@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:kuWPFTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280"
@@ -20,6 +21,8 @@
         </Border>
         <Button Content="Open Camera" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="323,31,0,0" VerticalAlignment="Top" Width="248" Height="40" FontSize="18" x:Name="TestButton" Click="TestButton_Click">
         </Button>
-        <WindowsFormsHost HorizontalAlignment="Left" Height="480" Margin="30,116,0,0" VerticalAlignment="Top" Width="640" Background="Ivory" Foreground="#FFFAF7F7"/>
+        <WindowsFormsHost HorizontalAlignment="Left" Height="480" Margin="30,116,0,0" VerticalAlignment="Top" Width="640" Background="Ivory" Foreground="#FFFAF7F7">
+            <wf:PictureBox></wf:PictureBox>
+        </WindowsFormsHost>
     </Grid>
 </Window>
