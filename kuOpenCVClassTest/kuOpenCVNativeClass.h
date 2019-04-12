@@ -25,6 +25,7 @@ public:
 	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName);
 	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int wndWidth, int wndHeight);
 	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, double imgScale);
+	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int handle);
 	KUOPENCVCLASSTEST_API void kuDestroyCurrentWindow();
 	
 	KUOPENCVCLASSTEST_API bool kuLoadImage(std::string filePath);

@@ -9,9 +9,6 @@
         Title="MainWindow" Height="720" Width="1280"
         Left="0" Top="0" Closed="Window_Closed">
     <Grid Background="Black" Margin="0,0,0,0">
-        <!--<Border BorderBrush="Orange" BorderThickness="1" Width="337" Height="34">
-            <TextBlock HorizontalAlignment="Left" Margin="30,30,0,0" Foreground="Yellow" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" TextOptions.TextHintingMode="Fixed" Text="Test" FontSize="24" Background="Black"/>
-        </Border>-->
         <Border BorderBrush="OrangeRed" BorderThickness="2" Margin="30,30,970,610">
             <TextBlock x:Name="TestTextBlock" Foreground="White" 
                        VerticalAlignment="Center" 
@@ -22,7 +19,7 @@
         <Button Content="Open Camera" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="323,31,0,0" VerticalAlignment="Top" Width="248" Height="40" FontSize="18" x:Name="TestButton" Click="TestButton_Click">
         </Button>
         <WindowsFormsHost HorizontalAlignment="Left" Height="480" Margin="30,116,0,0" VerticalAlignment="Top" Width="640" Background="Ivory" Foreground="#FFFAF7F7">
-            <wf:PictureBox></wf:PictureBox>
+            <wf:PictureBox x:Name="PictureBox" Width="640" Height="480"></wf:PictureBox>
         </WindowsFormsHost>
     </Grid>
 </Window>

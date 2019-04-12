@@ -60,8 +60,6 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 		cv::resizeWindow(windowName, cv::Size(wndWidth, wndHeight));
 		kuSetWindowName(windowName);
 
-		m_CurrnetWindowName = windowName;
-
 		m_WindowCreateFlag = true;
 	}
 }
@@ -76,7 +74,16 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 
 		kuSetWindowName(windowName);
 
-		m_CurrnetWindowName = windowName;
+		m_WindowCreateFlag = true;
+	}
+}
+
+KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName, int handle)
+{
+	if (!m_WindowCreateFlag)
+	{
+		cv::namedWindow(windowName, 0);
+		kuSetWindowName(windowName);
 
 		m_WindowCreateFlag = true;
 	}

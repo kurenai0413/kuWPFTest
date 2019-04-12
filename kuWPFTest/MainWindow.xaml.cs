@@ -24,11 +24,15 @@ namespace kuWPFTest
     {
         int testCnt = 0;
 
-        kuOpenCVWrapperClass wrapperObj = new kuOpenCVWrapperClass();    
+        kuOpenCVWrapperClass wrapperObj = new kuOpenCVWrapperClass();
+
+        IntPtr m_PictureBoxHandle;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            //m_PictureBoxHandle = PictureBox.Handle;
         }
 
         ~MainWindow()
