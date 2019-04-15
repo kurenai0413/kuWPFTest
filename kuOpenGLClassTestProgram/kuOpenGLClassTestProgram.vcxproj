@@ -74,6 +74,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\kuOpenGLNativeClass;$(IncludePath)</IncludePath>
+    <LibraryPath>..\kuWPFTest\bin\Debug;$(LibraryPath)</LibraryPath>
+    <OutDir>D:\Codes\WPF\kuWPFTest\kuWPFTest\bin\Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -95,7 +97,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>..\kuWPFTest\bin\Debug\kuOpenGLNativeClass_x64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kuOpenGLNativeClass_x64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

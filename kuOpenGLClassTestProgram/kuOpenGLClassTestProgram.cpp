@@ -6,5 +6,10 @@ void main()
 
 	nativeClassObj.kuCreateOpenGLWindow("OpenGL Test Window", 123);
 
+	while (true)
+	{
+		nativeClassObj.kuOpenGLShowFun();
+	}
+
 	system("pause");
 }

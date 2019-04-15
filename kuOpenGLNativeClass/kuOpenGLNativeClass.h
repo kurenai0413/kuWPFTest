@@ -15,7 +15,7 @@ public:
 	KUOPENGLNATIVECLASS_API ~kuOpenGLNativeClass();
 
 	KUOPENGLNATIVECLASS_API bool kuCreateOpenGLWindow(std::string windowName, int hWnd);
-	KUOPENGLNATIVECLASS_API void kuOpenGLDisplayFun();
+	//KUOPENGLNATIVECLASS_API void kuOpenGLDisplayFun(GLFWwindow * glfwWnd);
 	KUOPENGLNATIVECLASS_API void kuOpenGLShowFun();
 
 private:

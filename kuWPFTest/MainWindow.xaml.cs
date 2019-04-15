@@ -31,6 +31,8 @@ namespace kuWPFTest
         public MainWindow()
         {
             InitializeComponent();
+
+            m_PictureBoxHandle = PictureBox.Handle;
         }
 
         ~MainWindow()

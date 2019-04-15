@@ -15,24 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kuOpenGLNativeClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kuOpenGLPrimitiveObjects.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kuShaderHandler.h">
+    <ClInclude Include="kuOpenGLWrapperClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kuOpenGLNativeClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kuOpenGLPrimitiveObjects.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kuShaderHandler.cpp">
+    <ClCompile Include="kuOpenGLWrapperClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
