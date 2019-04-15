@@ -61,9 +61,10 @@ void kuOpenCVWrapper::kuOpenCVWrapperClass::kuDestroyCurrentWindow()
 	kuOpenCVClassPtr->kuDestroyCurrentWindow();
 }
 
-bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuLoadImage(std::string filename)
+bool kuOpenCVWrapper::kuOpenCVWrapperClass::kuLoadImage(System::String ^ filepath)
 {
-	return kuOpenCVClassPtr->kuLoadImage(filename);
+	std::string stdWindowName = marshal_as<std::string>(filepath);
+	return kuOpenCVClassPtr->kuLoadImage(stdWindowName);
 }
 
 void kuOpenCVWrapper::kuOpenCVWrapperClass::kuSetImageDefault()

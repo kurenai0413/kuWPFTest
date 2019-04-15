@@ -31,8 +31,6 @@ namespace kuWPFTest
         public MainWindow()
         {
             InitializeComponent();
-
-            //m_PictureBoxHandle = PictureBox.Handle;
         }
 
         ~MainWindow()
@@ -41,26 +39,29 @@ namespace kuWPFTest
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
-        {        
+        {
+            wrapperObj.kuLoadImage("WIN_20190412_11_54_22_Pro.jpg");
+
             IntPtr hwnd = PictureBox.Handle;
 
-            wrapperObj.kuStartCamera(0);
+            //wrapperObj.kuStartCamera(0);
             wrapperObj.kuCreateWindow("TestView", (int)hwnd);
+            wrapperObj.kuShowImage();
 
-            TestTextBlock.Text = "Camera started.";
+            //TestTextBlock.Text = "Camera started.";
 
-            while (true)
-            {
-                bool camFrameFlag = wrapperObj.kuGetCamframe();
+            //while (true)
+            //{
+            //    bool camFrameFlag = wrapperObj.kuGetCamframe();
 
-                if (camFrameFlag)
-                {
-                    wrapperObj.kuShowImage();
-                }
-            }
+            //    if (camFrameFlag)
+            //    {
+            //        wrapperObj.kuShowImage();
+            //    }
+            //}
 
             //testCnt++;
-            
+
         }
 
         private void Window_Closed(object sender, EventArgs e)

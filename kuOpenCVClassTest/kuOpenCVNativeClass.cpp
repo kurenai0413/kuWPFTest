@@ -24,7 +24,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetParentHWND(HWND parentHWND)
 KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuShowImage()
 {
 	cv::imshow(m_CurrnetWindowName, m_TestImage);
-	cv::waitKey(1);
+	cv::waitKey(0);
 }
 
 //KUOPENCVCLASSTEST_API void kuOpenCVClass::kuShowDefault()
