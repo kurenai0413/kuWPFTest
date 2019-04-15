@@ -20,6 +20,7 @@ namespace kuOpenCVWrapper
 
 		void kuCreateWindow(System::String ^ windowName);
 		void kuCreateWindow(System::String ^ windowName, int wndWidth, int wndHeight);
+		void kuCreateWindow(System::String ^ windowName, int handle);
 		void kuDestroyCurrentWindow();
 
 		bool kuLoadImage(std::string filename);

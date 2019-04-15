@@ -50,6 +50,12 @@ void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCreateWindow(System::String ^ wind
 	kuOpenCVClassPtr->kuCreateWindow(stdWindowName, wndWidth, wndHeight);
 }
 
+void kuOpenCVWrapper::kuOpenCVWrapperClass::kuCreateWindow(System::String ^ windowName, int handle)
+{
+	std::string stdWindowName = marshal_as<std::string>(windowName);
+	kuOpenCVClassPtr->kuCreateWindow(stdWindowName, handle);
+}
+
 void kuOpenCVWrapper::kuOpenCVWrapperClass::kuDestroyCurrentWindow()
 {
 	kuOpenCVClassPtr->kuDestroyCurrentWindow();

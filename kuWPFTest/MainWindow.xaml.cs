@@ -41,9 +41,11 @@ namespace kuWPFTest
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
+        {        
+            IntPtr hwnd = PictureBox.Handle;
+
             wrapperObj.kuStartCamera(0);
-            wrapperObj.kuCreateWindow("TestView");
+            wrapperObj.kuCreateWindow("TestView", (int)hwnd);
 
             TestTextBlock.Text = "Camera started.";
 

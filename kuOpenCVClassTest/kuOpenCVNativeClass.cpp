@@ -85,6 +85,11 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 		cv::namedWindow(windowName, 0);
 		kuSetWindowName(windowName);
 
+		HWND hWndCV = (HWND)cvGetWindowHandle(m_CurrnetWindowName.c_str());
+		HWND hWndCVParent = ::GetParent(hWndCV);
+		::SetParent(hWndCV, (HWND)handle);
+		::ShowWindow(hWndCVParent, SW_HIDE);
+
 		m_WindowCreateFlag = true;
 	}
 }
