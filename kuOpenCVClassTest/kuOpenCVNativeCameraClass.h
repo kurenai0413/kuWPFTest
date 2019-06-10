@@ -26,17 +26,20 @@ public:
 	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int wndWidth, int wndHeight);
 	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, double imgScale);
 	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int handle);
+	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight);
 	KUOPENCVCLASSTEST_API void kuDestroyCurrentWindow();
 	
 	KUOPENCVCLASSTEST_API bool kuLoadImage(std::string filePath);
+	KUOPENCVCLASSTEST_API void kuSaveImage(std::string filePath);
 	KUOPENCVCLASSTEST_API void kuSetImageDefault();
 	KUOPENCVCLASSTEST_API void kuShowImage();
 
 	KUOPENCVCLASSTEST_API bool kuStartCamera(int cameraIdx);
+	KUOPENCVCLASSTEST_API void kuCloseCamera();
+
 	KUOPENCVCLASSTEST_API bool kuGetCamframe();
 	KUOPENCVCLASSTEST_API bool kuGetCameraStatus();
-	KUOPENCVCLASSTEST_API void kuCloseCamera(int cameraIdx);
-
+	
 
 private:
 	int				m_DefaultWidth;
@@ -49,7 +52,7 @@ private:
 
 	int				m_CameraIdx;
 
-	bool			m_CameraFlag;
+	bool			m_isCameraOpened;
 	bool			m_WindowCreateFlag;
 
 	void			kuCameraThdFun();

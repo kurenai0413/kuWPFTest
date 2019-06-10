@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kuOpenCVWrapperClass.h">
+    <ClInclude Include="kuOpenCVCameraClassWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kuOpenCVWrapperClass.cpp">
+    <ClCompile Include="kuOpenCVCameraClassWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

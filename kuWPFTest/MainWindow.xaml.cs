@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using kuOpenCVWrapper;
 using System.Runtime.InteropServices;
+using System.Threading;
+using kuOpenCVWrapper;
 
 namespace kuWPFTest
 {
@@ -22,17 +23,20 @@ namespace kuWPFTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        int testCnt = 0;
+        bool    IsCameraOpened = false;
 
-        kuOpenCVWrapperClass wrapperObj = new kuOpenCVWrapperClass();
+        Thread  CameraThread;
 
-        IntPtr m_PictureBoxHandle;
+        kuOpenCVCameraClassWrapper wrapperObj = new kuOpenCVCameraClassWrapper();
+
+        IntPtr  PictureBoxHandle;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            m_PictureBoxHandle = PictureBox.Handle;
+            PictureBoxHandle = PictureBox.Handle;
+            wrapperObj.kuCreateWindow("TestView", (int)PictureBoxHandle, 1600, 900);
         }
 
         ~MainWindow()
@@ -40,36 +44,76 @@ namespace kuWPFTest
 
         }
 
-        private void TestButton_Click(object sender, RoutedEventArgs e)
+        private void OpenCameraButton_Click(object sender, RoutedEventArgs e)
+        {            
+            if (!IsCameraOpened)
+            {
+                IsCameraOpened = wrapperObj.kuStartCamera(0);
+
+                if (IsCameraOpened)
+                {
+                    CameraStatusText.Text = "Camera is opened.";
+
+                    CameraThread = new Thread(CameraThreadFun);
+                    CameraThread.Start();
+                }   
+            }
+        }
+
+        private void CloseCameraButton_Click(object sender, RoutedEventArgs e)
         {
-            wrapperObj.kuLoadImage("WIN_20190412_11_54_22_Pro.jpg");
+            if (IsCameraOpened)
+            {
+                IsCameraOpened = false;
+            }
+        }
 
-            IntPtr hwnd = PictureBox.Handle;
+        private void CameraThreadFun()
+        {
+            while (IsCameraOpened)
+            {
+                bool camFrameFlag = wrapperObj.kuGetCamframe();
 
-            //wrapperObj.kuStartCamera(0);
-            wrapperObj.kuCreateWindow("TestView", (int)hwnd);
-            wrapperObj.kuShowImage();
-
-            //TestTextBlock.Text = "Camera started.";
-
-            //while (true)
-            //{
-            //    bool camFrameFlag = wrapperObj.kuGetCamframe();
-
-            //    if (camFrameFlag)
-            //    {
-            //        wrapperObj.kuShowImage();
-            //    }
-            //}
-
-            //testCnt++;
-
+                if (camFrameFlag)
+                {
+                    wrapperObj.kuShowImage();
+                }
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            IsCameraOpened = false;
             wrapperObj.kuCloseCamera();
             wrapperObj.kuDestroyCurrentWindow();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void SetColorButton1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetColorButton2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetColorButton3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetColorButton4_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

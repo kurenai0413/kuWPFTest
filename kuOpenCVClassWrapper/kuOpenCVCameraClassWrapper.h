@@ -1,17 +1,19 @@
+// CLR wrapper of native library 
+
 #pragma once
 #include <memory>
 
-#include "kuOpenCVNativeClass.h"
+#include "kuOpenCVNativeCameraClass.h"
 
 using namespace System;
 
 namespace kuOpenCVWrapper
 {
-	public ref class kuOpenCVWrapperClass
+	public ref class kuOpenCVCameraClassWrapper
 	{
 	public:
-		kuOpenCVWrapperClass();
-		~kuOpenCVWrapperClass();
+		kuOpenCVCameraClassWrapper();
+		~kuOpenCVCameraClassWrapper();
 
 		bool kuStartCamera(int cameraIdx);
 		bool kuGetCamframe();
@@ -21,6 +23,7 @@ namespace kuOpenCVWrapper
 		void kuCreateWindow(System::String ^ windowName);
 		void kuCreateWindow(System::String ^ windowName, int wndWidth, int wndHeight);
 		void kuCreateWindow(System::String ^ windowName, int handle);
+		void kuCreateWindow(System::String ^ windowName, int handle, int wndWidth, int wndHeight);
 		void kuDestroyCurrentWindow();
 
 		bool kuLoadImage(System::String ^ filepath);

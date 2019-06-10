@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kuOpenCVNativeClass.h">
+    <ClInclude Include="kuOpenCVNativeCameraClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kuOpenCVNativeClass.cpp">
+    <ClCompile Include="kuOpenCVNativeCameraClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

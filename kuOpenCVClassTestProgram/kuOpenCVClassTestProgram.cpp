@@ -1,6 +1,6 @@
 #include <thread>
 
-#include "kuOpenCVNativeClass.h"
+#include "kuOpenCVNativeCameraClass.h"
 
 void displayFun(kuOpenCVNativeClass * classObj)
 {
@@ -10,31 +10,22 @@ void displayFun(kuOpenCVNativeClass * classObj)
 void main()
 {
 	kuOpenCVNativeClass kuOpenCVClassObj;
-	/*bool testFlag = kuOpenCVClassObj.kuLoadImage("33168590_1011670962334633_3301292501440135168_n.png");
-	std::cout << testFlag << std::endl;
-	kuOpenCVClassObj.kuCreateWindow("Test Image", 0.5f);
-	kuOpenCVClassObj.kuShowImage();*/
 
-	kuOpenCVClassObj.kuSetImageDefault();
-	kuOpenCVClassObj.kuCreateWindow("Test Image", 0.5f);
+	kuOpenCVClassObj.kuCreateWindow("Test Image", 1.0f);
 
-	while (true)
-	{
-		kuOpenCVClassObj.kuShowImage();
-	}
+	bool camFlag = kuOpenCVClassObj.kuStartCamera(0);
 
-	//while (true)
-	//{
-	//	kuOpenCVClassObj.kuShowImage();
-	//}
-
-	/*bool camFlag = kuOpenCVClassObj.kuStartCamera(0);
+	int frameCnt = 0;
 
 	while (camFlag)
 	{
 		kuOpenCVClassObj.kuGetCamframe();
 		kuOpenCVClassObj.kuShowImage();
-	}*/
+		
+		frameCnt++;
+
+		std::cout << frameCnt << std::endl;
+	}
 
 	system("pause");
 }

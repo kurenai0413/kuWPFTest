@@ -83,6 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\kuOpenCVClassTest;$(IncludePath)</IncludePath>
+    <LibraryPath>..\kuWPFTest\bin\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -129,7 +130,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>..\kuWPFTest\bin\Debug\kuOpenCVNativeClass_x64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kuOpenCVNativeCameraClass_x64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -1,19 +1,22 @@
-#include "kuOpenCVNativeClass.h"
+#include "kuOpenCVNativeCameraClass.h"
 
 KUOPENCVCLASSTEST_API kuOpenCVNativeClass::kuOpenCVNativeClass()
 {
-	m_CameraFlag	   = false;
+	m_isCameraOpened   = false;
 	m_WindowCreateFlag = false;
 
-	m_DefaultWidth  = 640;
-	m_DefaultHeight = 480;
+	m_DefaultWidth	   = 1280;
+	m_DefaultHeight	   = 720;
 
 	std::cout << "Native constructor called." << std::endl;
 }
 
 KUOPENCVCLASSTEST_API kuOpenCVNativeClass::~kuOpenCVNativeClass()
 {
-	
+	if (m_isCameraOpened)
+	{
+		kuCloseCamera();
+	}
 }
 
 KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetParentHWND(HWND parentHWND)
@@ -24,7 +27,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetParentHWND(HWND parentHWND)
 KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuShowImage()
 {
 	cv::imshow(m_CurrnetWindowName, m_TestImage);
-	cv::waitKey(0);
+	cv::waitKey(33);
 }
 
 //KUOPENCVCLASSTEST_API void kuOpenCVClass::kuShowDefault()
@@ -56,7 +59,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 {
 	if (!m_WindowCreateFlag)
 	{
-		cv::namedWindow(windowName, 0);
+		cv::namedWindow(windowName, 1);
 		cv::resizeWindow(windowName, cv::Size(wndWidth, wndHeight));
 		kuSetWindowName(windowName);
 
@@ -82,7 +85,24 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 {
 	if (!m_WindowCreateFlag)
 	{
+		cv::namedWindow(windowName, 1);
+		kuSetWindowName(windowName);
+
+		HWND hWndCV		  = (HWND)cvGetWindowHandle(m_CurrnetWindowName.c_str());
+		HWND hWndCVParent = ::GetParent(hWndCV);
+		::SetParent(hWndCV, (HWND)handle);
+		::ShowWindow(hWndCVParent, SW_HIDE);
+
+		m_WindowCreateFlag = true;
+	}
+}
+
+KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight)
+{
+	if (!m_WindowCreateFlag)
+	{
 		cv::namedWindow(windowName, 0);
+		cv::resizeWindow(windowName, cv::Size(wndWidth, wndHeight));
 		kuSetWindowName(windowName);
 
 		HWND hWndCV = (HWND)cvGetWindowHandle(m_CurrnetWindowName.c_str());
@@ -112,6 +132,11 @@ KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuLoadImage(std::string filePath
 		return false;
 }
 
+KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSaveImage(std::string filePath)
+{
+	cv::imwrite(filePath, m_TestImage);
+}
+
 KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetImageDefault()
 {
 	m_TestImage = cv::Mat::zeros(m_DefaultHeight, m_DefaultWidth, CV_8UC1);
@@ -120,16 +145,19 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetImageDefault()
 KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuStartCamera(int cameraIdx)
 {
 	m_CameraIdx = cameraIdx;
-
 	if (!m_CamCapture.isOpened())
-	{
+	{		
 		m_CamCapture.open(cameraIdx);
 
 		if (m_CamCapture.isOpened())
 		{
-			m_CameraFlag = true;
+			bool setFourCCFlag = m_CamCapture.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
+			bool setWidthFlag  = m_CamCapture.set(cv::CAP_PROP_FRAME_WIDTH, m_DefaultWidth);
+			bool setHeightFlag = m_CamCapture.set(cv::CAP_PROP_FRAME_HEIGHT, m_DefaultHeight);
 
-			return m_CameraFlag;
+			m_isCameraOpened = true;
+
+			return m_isCameraOpened;
 		}
 		else
 		{
@@ -153,7 +181,7 @@ KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuGetCameraStatus()
 		return false;
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCloseCamera(int cameraIdx)
+KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCloseCamera()
 {
 	m_CamCapture.release();
 }
