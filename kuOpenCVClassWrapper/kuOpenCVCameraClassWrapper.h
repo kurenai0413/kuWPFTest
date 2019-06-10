@@ -4,10 +4,11 @@
 #include <memory>
 
 #include "kuOpenCVNativeCameraClass.h"
+//#include "kuOpenCVNativeAlgorithmClass.h"
 
 using namespace System;
 
-namespace kuOpenCVWrapper
+namespace kuCLRWrapper
 {
 	public ref class kuOpenCVCameraClassWrapper
 	{
@@ -32,5 +33,12 @@ namespace kuOpenCVWrapper
 
 	private:
 		kuOpenCVNativeClass * kuOpenCVClassPtr;
+	};
+
+	public ref class kuOpenCVAlgorithmClassWrapper
+	{
+	public:
+		kuOpenCVAlgorithmClassWrapper();
+		~kuOpenCVAlgorithmClassWrapper();
 	};
 }

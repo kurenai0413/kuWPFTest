@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Threading;
-using kuOpenCVWrapper;
+using kuCLRWrapper;
 
 namespace kuWPFTest
 {
@@ -24,13 +24,11 @@ namespace kuWPFTest
     public partial class MainWindow : Window
     {
         bool    IsCameraOpened = false;
-
+        IntPtr  PictureBoxHandle;
         Thread  CameraThread;
 
         kuOpenCVCameraClassWrapper wrapperObj = new kuOpenCVCameraClassWrapper();
-
-        IntPtr  PictureBoxHandle;
-
+        
         public MainWindow()
         {
             InitializeComponent();
