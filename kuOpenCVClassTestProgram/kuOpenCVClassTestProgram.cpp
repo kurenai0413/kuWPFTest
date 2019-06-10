@@ -2,14 +2,14 @@
 
 #include "kuOpenCVNativeCameraClass.h"
 
-void displayFun(kuOpenCVNativeClass * classObj)
+void displayFun(kuOpenCVNativeCameraClass * classObj)
 {
 
 }
 
 void main()
 {
-	kuOpenCVNativeClass kuOpenCVClassObj;
+	kuOpenCVNativeCameraClass kuOpenCVClassObj;
 
 	kuOpenCVClassObj.kuCreateWindow("Test Image", 1.0f);
 

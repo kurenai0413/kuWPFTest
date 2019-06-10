@@ -1,8 +1,8 @@
 #pragma once
-#ifdef KUOPENCVCLASSTEST_EXPORTS
-#define KUOPENCVCLASSTEST_API __declspec(dllexport)
+#ifdef KUOPENCVNATIVECAMERACLASS_EXPORTS
+#define KUOPENCVNATIVECAMERACLASS_API __declspec(dllexport)
 #else
-#define KUOPENCVCLASSTEST_API __declspec(dllimport)
+#define KUOPENCVNATIVECAMERACLASS_API __declspec(dllimport)
 #endif
 
 #include <windows.h>
@@ -12,33 +12,33 @@
 
 using namespace cv;
 
-class kuOpenCVNativeClass
+class kuOpenCVNativeCameraClass
 {
 public:
 
-	KUOPENCVCLASSTEST_API kuOpenCVNativeClass();
-	KUOPENCVCLASSTEST_API ~kuOpenCVNativeClass();
+	KUOPENCVNATIVECAMERACLASS_API kuOpenCVNativeCameraClass();
+	KUOPENCVNATIVECAMERACLASS_API ~kuOpenCVNativeCameraClass();
 
-	KUOPENCVCLASSTEST_API void kuSetParentHWND(HWND parentHWND);
-	KUOPENCVCLASSTEST_API void kuSetWindowName(std::string windowName);
+	KUOPENCVNATIVECAMERACLASS_API void kuSetParentHWND(HWND parentHWND);
+	KUOPENCVNATIVECAMERACLASS_API void kuSetWindowName(std::string windowName);
 
-	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName);
-	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int wndWidth, int wndHeight);
-	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, double imgScale);
-	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int handle);
-	KUOPENCVCLASSTEST_API void kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight);
-	KUOPENCVCLASSTEST_API void kuDestroyCurrentWindow();
+	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName);
+	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, int wndWidth, int wndHeight);
+	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, double imgScale);
+	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, int handle);
+	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight);
+	KUOPENCVNATIVECAMERACLASS_API void kuDestroyCurrentWindow();
 	
-	KUOPENCVCLASSTEST_API bool kuLoadImage(std::string filePath);
-	KUOPENCVCLASSTEST_API void kuSaveImage(std::string filePath);
-	KUOPENCVCLASSTEST_API void kuSetImageDefault();
-	KUOPENCVCLASSTEST_API void kuShowImage();
+	KUOPENCVNATIVECAMERACLASS_API bool kuLoadImage(std::string filePath);
+	KUOPENCVNATIVECAMERACLASS_API void kuSaveImage(std::string filePath);
+	KUOPENCVNATIVECAMERACLASS_API void kuSetImageDefault();
+	KUOPENCVNATIVECAMERACLASS_API void kuShowImage();
 
-	KUOPENCVCLASSTEST_API bool kuStartCamera(int cameraIdx);
-	KUOPENCVCLASSTEST_API void kuCloseCamera();
+	KUOPENCVNATIVECAMERACLASS_API bool kuStartCamera(int cameraIdx);
+	KUOPENCVNATIVECAMERACLASS_API void kuCloseCamera();
 
-	KUOPENCVCLASSTEST_API bool kuGetCamframe();
-	KUOPENCVCLASSTEST_API bool kuGetCameraStatus();
+	KUOPENCVNATIVECAMERACLASS_API bool kuGetCamframe();
+	KUOPENCVNATIVECAMERACLASS_API bool kuGetCameraStatus();
 	
 
 private:

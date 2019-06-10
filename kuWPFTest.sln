@@ -8,13 +8,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kuWPFOpenCVTest", "kuWPFTes
 		{239461D0-9457-4DB5-8AAB-847102D465C6} = {239461D0-9457-4DB5-8AAB-847102D465C6}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuOpenCVNativeClass", "kuOpenCVClassTest\kuOpenCVClassTest.vcxproj", "{239461D0-9457-4DB5-8AAB-847102D465C6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuOpenCVNativeCameraClass", "kuOpenCVClassTest\kuOpenCVClassTest.vcxproj", "{239461D0-9457-4DB5-8AAB-847102D465C6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuOpenCVClassTestProgram", "kuOpenCVClassTestProgram\kuOpenCVClassTestProgram.vcxproj", "{8DFAD3A7-2CDD-4F37-B45B-66734D8C809D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuOpenCVWrapperClass", "kuOpenCVClassWrapper\kuOpenCVClassWrapper.vcxproj", "{A5A13995-04A8-4B19-8B9A-995B82200AA3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuCLRWrapper", "kuOpenCVClassWrapper\kuOpenCVClassWrapper.vcxproj", "{A5A13995-04A8-4B19-8B9A-995B82200AA3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuCLRConsoleTest", "kuCLRConsoleTest\kuCLRConsoleTest.vcxproj", "{04531D19-2BD6-42C4-BFB0-443F29823C4D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kuOpenCVNativeAlgorithmClass", "kuOpenCVNativeAlgorithmClass\kuOpenCVNativeAlgorithmClass.vcxproj", "{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,16 @@ Global
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x64.Build.0 = Release|x64
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x86.ActiveCfg = Release|Win32
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x86.Build.0 = Release|Win32
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Debug|x64.ActiveCfg = Debug|x64
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Debug|x64.Build.0 = Debug|x64
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Debug|x86.ActiveCfg = Debug|Win32
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Debug|x86.Build.0 = Debug|Win32
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Release|Any CPU.ActiveCfg = Release|Win32
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Release|x64.ActiveCfg = Release|x64
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Release|x64.Build.0 = Release|x64
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Release|x86.ActiveCfg = Release|Win32
+		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

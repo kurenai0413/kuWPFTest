@@ -32,7 +32,7 @@ namespace kuCLRWrapper
 		void kuShowImage();
 
 	private:
-		kuOpenCVNativeClass * kuOpenCVClassPtr;
+		kuOpenCVNativeCameraClass * kuOpenCVClassPtr;
 	};
 
 	public ref class kuOpenCVAlgorithmClassWrapper

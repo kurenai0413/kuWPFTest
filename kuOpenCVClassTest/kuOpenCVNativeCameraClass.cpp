@@ -1,6 +1,6 @@
 #include "kuOpenCVNativeCameraClass.h"
 
-KUOPENCVCLASSTEST_API kuOpenCVNativeClass::kuOpenCVNativeClass()
+KUOPENCVNATIVECAMERACLASS_API kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClass()
 {
 	m_isCameraOpened   = false;
 	m_WindowCreateFlag = false;
@@ -11,7 +11,7 @@ KUOPENCVCLASSTEST_API kuOpenCVNativeClass::kuOpenCVNativeClass()
 	std::cout << "Native constructor called." << std::endl;
 }
 
-KUOPENCVCLASSTEST_API kuOpenCVNativeClass::~kuOpenCVNativeClass()
+KUOPENCVNATIVECAMERACLASS_API kuOpenCVNativeCameraClass::~kuOpenCVNativeCameraClass()
 {
 	if (m_isCameraOpened)
 	{
@@ -19,12 +19,12 @@ KUOPENCVCLASSTEST_API kuOpenCVNativeClass::~kuOpenCVNativeClass()
 	}
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetParentHWND(HWND parentHWND)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuSetParentHWND(HWND parentHWND)
 {
 
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuShowImage()
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuShowImage()
 {
 	cv::imshow(m_CurrnetWindowName, m_TestImage);
 	cv::waitKey(33);
@@ -37,12 +37,12 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuShowImage()
 //	cv::waitKey(0);
 //}
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetWindowName(std::string windowName)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuSetWindowName(std::string windowName)
 {
 	m_CurrnetWindowName = windowName;
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCreateWindow(std::string windowName)
 {
 	if (!m_WindowCreateFlag)
 	{
@@ -55,7 +55,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 	}
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName, int wndWidth, int wndHeight)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCreateWindow(std::string windowName, int wndWidth, int wndHeight)
 {
 	if (!m_WindowCreateFlag)
 	{
@@ -67,7 +67,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 	}
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName, double imgScale)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCreateWindow(std::string windowName, double imgScale)
 {
 	if (!m_WindowCreateFlag)
 	{
@@ -81,7 +81,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 	}
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName, int handle)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCreateWindow(std::string windowName, int handle)
 {
 	if (!m_WindowCreateFlag)
 	{
@@ -97,7 +97,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 	}
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight)
 {
 	if (!m_WindowCreateFlag)
 	{
@@ -114,7 +114,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCreateWindow(std::string windo
 	}
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuDestroyCurrentWindow()
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuDestroyCurrentWindow()
 {
 	if (m_WindowCreateFlag)
 	{
@@ -122,7 +122,7 @@ KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuDestroyCurrentWindow()
 	}
 }
 
-KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuLoadImage(std::string filePath)
+KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuLoadImage(std::string filePath)
 {
 	m_TestImage = cv::imread(filePath, 1);
 
@@ -132,17 +132,17 @@ KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuLoadImage(std::string filePath
 		return false;
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSaveImage(std::string filePath)
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuSaveImage(std::string filePath)
 {
 	cv::imwrite(filePath, m_TestImage);
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuSetImageDefault()
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuSetImageDefault()
 {
 	m_TestImage = cv::Mat::zeros(m_DefaultHeight, m_DefaultWidth, CV_8UC1);
 }
 
-KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuStartCamera(int cameraIdx)
+KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuStartCamera(int cameraIdx)
 {
 	m_CameraIdx = cameraIdx;
 	if (!m_CamCapture.isOpened())
@@ -166,14 +166,14 @@ KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuStartCamera(int cameraIdx)
 	}
 }
 
-KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuGetCamframe()
+KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuGetCamframe()
 {
 	m_CamCapture >> m_TestImage;
 
 	return true;
 }
 
-KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuGetCameraStatus()
+KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuGetCameraStatus()
 {
 	if (m_CamCapture.isOpened())
 		return true;
@@ -181,7 +181,7 @@ KUOPENCVCLASSTEST_API bool kuOpenCVNativeClass::kuGetCameraStatus()
 		return false;
 }
 
-KUOPENCVCLASSTEST_API void kuOpenCVNativeClass::kuCloseCamera()
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCloseCamera()
 {
 	m_CamCapture.release();
 }

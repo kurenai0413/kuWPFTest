@@ -1,14 +1,15 @@
 #include <msclr\marshal.h>
 #include <msclr\marshal_cppstd.h>
 
-#include "kuOpenCVCameraClassWrapper.h"
+#include "kuCLRWrapper.h"
 
 using namespace kuCLRWrapper;
 using namespace msclr::interop;
 
+#pragma region // kuOpenCVCameraClassWrapper //
 kuOpenCVCameraClassWrapper::kuOpenCVCameraClassWrapper()
 {
-	kuOpenCVClassPtr = new kuOpenCVNativeClass;
+	kuOpenCVClassPtr = new kuOpenCVNativeCameraClass;
 	std::cout << "Wrapper constructor called." << std::endl;
 }
 
@@ -92,3 +93,8 @@ kuCLRWrapper::kuOpenCVAlgorithmClassWrapper::~kuOpenCVAlgorithmClassWrapper()
 {
 	throw gcnew System::NotImplementedException();
 }
+#pragma endregion
+
+#pragma region // kuOpenCVAlgorithmClassWrapper //
+
+#pragma endregion
