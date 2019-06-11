@@ -10,12 +10,15 @@
         Left="0" Top="0" Closed="Window_Closed" WindowStyle="None" WindowState="Maximized"
         KeyDown="Window_KeyDown" Background="#FFBF5279">
     <Grid>
-        <Button Content="Open Camera" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
-                Margin="32,30,0,0" VerticalAlignment="Top" Width="200" Height="40" 
+        <Button Content="Open Camera Stream" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
+                Margin="32,30,0,0" VerticalAlignment="Top" Width="250" Height="40" 
                 FontSize="20" x:Name="OpenCameraButton" Click="OpenCameraButton_Click" FontWeight="Bold"/>
         <Button Content="Close Camera" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
-                Margin="250,30,0,0" VerticalAlignment="Top" Width="200" Height="40" 
+                Margin="298,30,0,0" VerticalAlignment="Top" Width="200" Height="40" 
                 FontSize="20" x:Name="CloseCameraButton" Click="CloseCameraButton_Click" FontWeight="Bold"/>
+        <Button Content="Processing" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
+                Margin="524,30,0,0" VerticalAlignment="Top" Width="200" Height="40" 
+                FontSize="20" x:Name="ProcessingButton" Click="ProcessingButton_Click" FontWeight="Bold"/>
         <WindowsFormsHost HorizontalAlignment="Center" Height="900" Margin="250,133,62,0" 
                           VerticalAlignment="Top" Width="1600" Background="Ivory" 
                           Foreground="#FFFAF7F7">

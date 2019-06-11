@@ -34,6 +34,8 @@ public:
 	KUOPENCVNATIVECAMERACLASS_API void kuSetImageDefault();
 	KUOPENCVNATIVECAMERACLASS_API void kuShowImage();
 
+	KUOPENCVNATIVECAMERACLASS_API Mat * kuGetProcessingImagePointer();
+
 	KUOPENCVNATIVECAMERACLASS_API bool kuStartCamera(int cameraIdx);
 	KUOPENCVNATIVECAMERACLASS_API void kuCloseCamera();
 
@@ -42,18 +44,19 @@ public:
 	
 
 private:
-	int				m_DefaultWidth;
-	int				m_DefaultHeight;
+	int					m_DefaultWidth;
+	int					m_DefaultHeight;
 
-	Mat				m_TestImage;
-	std::string		m_CurrnetWindowName;
+	Mat					m_TestImage;
+	Mat				*	m_ProcessingImage;
+	std::string			m_CurrnetWindowName;
 
-	VideoCapture	m_CamCapture;
+	VideoCapture		m_CamCapture;
 
-	int				m_CameraIdx;
+	int					m_CameraIdx;
 
-	bool			m_isCameraOpened;
-	bool			m_WindowCreateFlag;
+	bool				m_isCameraOpened;
+	bool				m_WindowCreateFlag;
 
-	void			kuCameraThdFun();
+	void				kuCameraThdFun();
 };

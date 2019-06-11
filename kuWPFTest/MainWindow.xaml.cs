@@ -94,6 +94,11 @@ namespace kuWPFTest
             }
         }
 
+        private void ProcessingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void SetColorButton1_Click(object sender, RoutedEventArgs e)
         {
 

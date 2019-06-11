@@ -30,6 +30,11 @@ KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuShowImage()
 	cv::waitKey(33);
 }
 
+KUOPENCVNATIVECAMERACLASS_API Mat * kuOpenCVNativeCameraClass::kuGetProcessingImagePointer()
+{
+	return m_ProcessingImage;
+}
+
 //KUOPENCVCLASSTEST_API void kuOpenCVClass::kuShowDefault()
 //{
 //	m_TestImage = cv::Mat::zeros(m_DefaultHeight, m_DefaultWidth, CV_8UC1);
@@ -154,6 +159,11 @@ KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuStartCamera(int 
 			bool setFourCCFlag = m_CamCapture.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
 			bool setWidthFlag  = m_CamCapture.set(cv::CAP_PROP_FRAME_WIDTH, m_DefaultWidth);
 			bool setHeightFlag = m_CamCapture.set(cv::CAP_PROP_FRAME_HEIGHT, m_DefaultHeight);
+
+			if (m_ProcessingImage->empty())
+			{
+				m_ProcessingImage->create(m_DefaultHeight, m_DefaultWidth, CV_8UC3);
+			}
 
 			m_isCameraOpened = true;
 
