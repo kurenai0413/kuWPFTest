@@ -115,27 +115,36 @@ namespace kuWPFTest
 
                 wrapperObj.kuSetHairHueColor(m_HairHueValue);
                 m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
+                wrapperObj.kuChangeHairColor();
             }
         }
 
         private void SetColorButton1_Click(object sender, RoutedEventArgs e)
         {
             m_HairHueValue = 105; // BE9C7A
+            wrapperObj.kuSetHairHueColor(m_HairHueValue);
+            wrapperObj.kuChangeHairColor();
         }
 
         private void SetColorButton2_Click(object sender, RoutedEventArgs e)
         {
             m_HairHueValue = 115; // CA3A1C
+            wrapperObj.kuSetHairHueColor(m_HairHueValue);
+            wrapperObj.kuChangeHairColor();
         }
 
         private void SetColorButton3_Click(object sender, RoutedEventArgs e)
         {
             m_HairHueValue = 120; // A80001
+            wrapperObj.kuSetHairHueColor(m_HairHueValue);
+            wrapperObj.kuChangeHairColor();
         }
 
         private void SetColorButton4_Click(object sender, RoutedEventArgs e)
         {
             m_HairHueValue = 125; // A62C42
+            wrapperObj.kuSetHairHueColor(m_HairHueValue);
+            wrapperObj.kuChangeHairColor();
         }
     }
 }

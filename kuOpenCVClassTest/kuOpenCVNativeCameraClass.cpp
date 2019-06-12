@@ -4,7 +4,7 @@
 #define ShowDebugImage true
 #endif
 
-//#define SingleImageTest true
+#define SingleImageTest true
 
 #pragma region // Pre-processor define //
 #define ResizeScale						3
@@ -65,6 +65,7 @@ public:
 		 
 	bool kuGetProcessingFrame();
 	bool kuGenerateHairMask();
+	bool kuChangeHairColorPublic();
 
 	bool kuLoadDlibModels();
 
@@ -112,7 +113,7 @@ private:
 	void CalculateRGBRegionMeanAndSTDExcludeBlack(cv::Mat RGBPatch, double &firstMean, double &firstStd, double &secondMean, double &secondStd, double &thirdMean, double &thirdStd);
 	void CalculateRGBPatchChannelSumExcludeBlack(cv::Mat RGBPatch, int &validPixelNum, double &sumA, double &sumB, double &sumC, double &sqSumA, double &sqSumB, double &sqSumC);
 
-	void ChangeHairRegionColor(cv::Mat finalHairMask, int hueValue);
+	bool ChangeHairRegionColor(cv::Mat finalHairMask, int hueValue);
 };
 #pragma endregion
 
@@ -220,6 +221,11 @@ bool kuOpenCVNativeCameraClass::kuGetProcessingFrame()
 bool kuOpenCVNativeCameraClass::kuGenerateHairMask()
 {
 	return pimpl->kuGenerateHairMask();
+}
+
+bool kuOpenCVNativeCameraClass::kuChangeHairColorPublic()
+{
+	return pimpl->kuChangeHairColorPublic();
 }
 
 bool kuOpenCVNativeCameraClass::kuLoadDlibModels()
@@ -920,13 +926,18 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 #endif
 		#pragma endregion
 		
-		ChangeHairRegionColor(m_FinalHairMask, m_HueValue);
+		//ChangeHairRegionColor(m_FinalHairMask, m_HueValue);
 
 		//cv::cvtColor(m_UpdatedHSVImg, m_UpdatedCamFrame, CV_HSV2RGB);
 		//cv::imshow(m_CurrnetWindowName, m_UpdatedCamFrame);
 
 		return true;
 	}
+}
+
+bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuChangeHairColorPublic()
+{
+	return ChangeHairRegionColor(m_FinalHairMask, m_HueValue);
 }
 
 bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuLoadDlibModels()
@@ -1199,7 +1210,7 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculateRGBPatch
 	validPixelNum = pixelNum;
 }
 
-void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::ChangeHairRegionColor(cv::Mat finalHairMask, int hueValue)
+bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::ChangeHairRegionColor(cv::Mat finalHairMask, int hueValue)
 {
 #pragma region // Color space conversion //
 	cv::cvtColor(m_OriginalCameraFrame, m_UpdatedHSVImg, CV_RGB2HSV);
@@ -1234,5 +1245,7 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::ChangeHairRegionC
 
 	cv::cvtColor(m_UpdatedHSVImg, m_UpdatedCamFrame, CV_HSV2RGB);
 	cv::imshow(m_CurrnetWindowName, m_UpdatedCamFrame);
+
+	return true;
 }
 #pragma endregion

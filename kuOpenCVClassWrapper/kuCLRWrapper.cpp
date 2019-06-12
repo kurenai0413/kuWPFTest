@@ -44,6 +44,11 @@ bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuGenerateHairMask()
 	return kuOpenCVClassPtr->kuGenerateHairMask();
 }
 
+bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuChangeHairColor()
+{
+	return kuOpenCVClassPtr->kuChangeHairColorPublic();
+}
+
 bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuLoadDlibModels()
 {
 	return kuOpenCVClassPtr->kuLoadDlibModels();

@@ -34,6 +34,7 @@ namespace kuCLRWrapper
 
 		bool kuGetProcessingFrame();
 		bool kuGenerateHairMask();
+		bool kuChangeHairColor();
 
 		bool kuLoadDlibModels();
 

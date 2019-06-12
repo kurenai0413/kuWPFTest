@@ -38,6 +38,7 @@ public:
 
 	bool kuGetProcessingFrame();
 	bool kuGenerateHairMask();
+	bool kuChangeHairColorPublic();
 
 	bool kuLoadDlibModels();
 
