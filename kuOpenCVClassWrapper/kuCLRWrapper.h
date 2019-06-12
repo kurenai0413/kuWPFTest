@@ -39,6 +39,8 @@ namespace kuCLRWrapper
 
 		void kuShowFinalHairMask();
 
+		void kuSetHairHueColor(int hueValue);
+
 	private:
 		kuOpenCVNativeCameraClass * kuOpenCVClassPtr;
 	};

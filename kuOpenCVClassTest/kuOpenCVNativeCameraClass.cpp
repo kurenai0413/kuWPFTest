@@ -4,7 +4,7 @@
 #define ShowDebugImage true
 #endif
 
-#define SingleImageTest true
+//#define SingleImageTest true
 
 #pragma region // Pre-processor define //
 #define ResizeScale						3
@@ -100,6 +100,8 @@ private:
 
 	int								m_PaddingStartX;
 	int								m_PaddingStartY;
+
+	bool							m_isHairMaskGenerated;
 
 	void FindMaxAreaFace(std::vector<dlib::rectangle> faces, int &maxAreaFaceIdx);
 	void GenerateNewPt(cv::Point oriPt, int faceWidth, float faceHeight, float xShiftScale, float yShiftScale, cv::Point &newPt);
@@ -223,6 +225,11 @@ bool kuOpenCVNativeCameraClass::kuGenerateHairMask()
 bool kuOpenCVNativeCameraClass::kuLoadDlibModels()
 {
 	return pimpl->kuLoadDlibModels();
+}
+
+void kuOpenCVNativeCameraClass::kuSetHairHueColor(int hueValue)
+{
+	pimpl->kuSetHairHueColor(hueValue);
 }
 
 void kuOpenCVNativeCameraClass::kuShowFinalHairMask()
@@ -901,9 +908,9 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 					m_FinalHairMask.at<uchar>(j, 3 * i + 2) = 255;
 
 					// Apply new hair color to image //
-					m_UpdatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX)	  = ColorHue;
-					m_UpdatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 1) = 1.5 * SVal;
-					m_UpdatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 2) = 1.5 * VVal;
+					//m_UpdatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX)	  = ColorHue;
+					//m_UpdatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 1) = 1.5 * SVal;
+					//m_UpdatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 2) = 1.5 * VVal;
 				}
 			}
 		}
@@ -913,10 +920,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 #endif
 		#pragma endregion
 		
-		//ChangeHairRegionColor(m_FinalHairMask, m_HueValue);
+		ChangeHairRegionColor(m_FinalHairMask, m_HueValue);
 
-		cv::cvtColor(m_UpdatedHSVImg, m_UpdatedCamFrame, CV_HSV2RGB);
-		cv::imshow(m_CurrnetWindowName, m_UpdatedCamFrame);
+		//cv::cvtColor(m_UpdatedHSVImg, m_UpdatedCamFrame, CV_HSV2RGB);
+		//cv::imshow(m_CurrnetWindowName, m_UpdatedCamFrame);
 
 		return true;
 	}
@@ -1226,6 +1233,6 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::ChangeHairRegionC
 	}
 
 	cv::cvtColor(m_UpdatedHSVImg, m_UpdatedCamFrame, CV_HSV2RGB);
-	cv::imshow("Test123", m_UpdatedCamFrame);
+	cv::imshow(m_CurrnetWindowName, m_UpdatedCamFrame);
 }
 #pragma endregion

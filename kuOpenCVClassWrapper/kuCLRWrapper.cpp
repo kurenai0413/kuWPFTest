@@ -54,6 +54,11 @@ void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuShowFinalHairMask()
 	kuOpenCVClassPtr->kuShowFinalHairMask();
 }
 
+void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuSetHairHueColor(int hueValue)
+{
+	kuOpenCVClassPtr->kuSetHairHueColor(hueValue);
+}
+
 void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuCloseCamera()
 {
 	kuOpenCVClassPtr->kuCloseCamera();

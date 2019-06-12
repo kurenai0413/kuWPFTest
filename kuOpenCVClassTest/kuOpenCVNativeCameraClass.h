@@ -41,6 +41,8 @@ public:
 
 	bool kuLoadDlibModels();
 
+	void kuSetHairHueColor(int hueValue);
+
 	#pragma region // For debug //
 	void kuShowFinalHairMask();
 	#pragma endregion

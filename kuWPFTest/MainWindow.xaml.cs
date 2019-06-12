@@ -26,6 +26,9 @@ namespace kuWPFTest
         bool    IsCameraOpened = false;
         IntPtr  PictureBoxHandle;
         Thread  CameraThread;
+        int     m_HairHueValue;
+
+        bool    m_isHairMaskGenerated = false;
 
         kuOpenCVCameraClassWrapper wrapperObj = new kuOpenCVCameraClassWrapper();
         
@@ -37,6 +40,8 @@ namespace kuWPFTest
 
             PictureBoxHandle = PictureBox.Handle;
             wrapperObj.kuCreateWindow("TestView", (int)PictureBoxHandle, 1600, 900);
+
+            m_HairHueValue = 105; // Default #BE9C7A
         }
 
         ~MainWindow()
@@ -56,7 +61,9 @@ namespace kuWPFTest
 
                     CameraThread = new Thread(CameraThreadFun);
                     CameraThread.Start();
-                }   
+                    
+                    m_isHairMaskGenerated = false;
+                }
             }
         }
 
@@ -103,31 +110,32 @@ namespace kuWPFTest
                 IsCameraOpened = false;
 
                 wrapperObj.kuGetProcessingFrame();
+                wrapperObj.kuCloseCamera();
                 wrapperObj.kuShowProcessedImage();
-                wrapperObj.kuGenerateHairMask();
 
-                //wrapperObj.kuShowFinalHairMask();
+                wrapperObj.kuSetHairHueColor(m_HairHueValue);
+                m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
             }
         }
 
         private void SetColorButton1_Click(object sender, RoutedEventArgs e)
         {
-
+            m_HairHueValue = 105; // BE9C7A
         }
 
         private void SetColorButton2_Click(object sender, RoutedEventArgs e)
         {
-
+            m_HairHueValue = 115; // CA3A1C
         }
 
         private void SetColorButton3_Click(object sender, RoutedEventArgs e)
         {
-
+            m_HairHueValue = 120; // A80001
         }
 
         private void SetColorButton4_Click(object sender, RoutedEventArgs e)
         {
-
+            m_HairHueValue = 125; // A62C42
         }
     }
 }
