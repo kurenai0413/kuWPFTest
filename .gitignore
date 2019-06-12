@@ -262,3 +262,5 @@ __pycache__/
 /kuWPFTest/WIN_20190412_11_54_22_Pro.jpg
 /kuOpenCVClassTest/UniColor_Peggy_A2.jpg
 /kuOpenCVClassTestProgram/OpenCV341_vc15_x64d_noCUDA.props
+/kuOpenCVClassTest/dlib1915_vc15_x64.props
+/kuOpenCVClassWrapper/OpenCV341_x64_noCUDA.props

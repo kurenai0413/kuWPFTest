@@ -103,8 +103,8 @@ namespace kuWPFTest
                 IsCameraOpened = false;
 
                 wrapperObj.kuGetProcessingFrame();
-                wrapperObj.kuGenerateHairMask();
                 wrapperObj.kuShowProcessedImage();
+                wrapperObj.kuGenerateHairMask();
 
                 //wrapperObj.kuShowFinalHairMask();
             }

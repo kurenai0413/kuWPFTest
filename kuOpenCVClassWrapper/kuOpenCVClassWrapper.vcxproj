@@ -69,18 +69,16 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\Libraries\PropertySheet\OpenCV341_vc15_x64d.props" />
-    <Import Project="..\..\..\..\Libraries\PropertySheet\dlib1915_vc15_x64d_CUDA.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\Libraries\PropertySheet\OpenCV341_vc15_x64.props" />
-    <Import Project="..\..\..\..\Libraries\PropertySheet\dlib1915_vc15_x64_CUDA.props" />
+    <Import Project="OpenCV341_x64_noCUDA.props" />
+    <Import Project="..\kuOpenCVClassTest\dlib1915_vc15_x64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Codes\WPF\kuWPFTest\kuOpenCVClassTest;$(IncludePath)</IncludePath>
+    <IncludePath>..\kuOpenCVClassTest;$(IncludePath)</IncludePath>
     <LibraryPath>..\kuWPFTest\bin\Release;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_x64</TargetName>
     <OutDir>..\kuWPFTest\bin\Release</OutDir>
@@ -104,7 +102,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kuOpenCVNativeCameraClass_x64.lib;opencv_world341_x64.lib</AdditionalDependencies>
+      <AdditionalDependencies>kuOpenCVNativeCameraClass_x64.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

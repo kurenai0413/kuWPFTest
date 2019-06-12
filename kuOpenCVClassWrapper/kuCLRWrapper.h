@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "kuOpenCVNativeCameraClass.h"
-//#include "kuOpenCVNativeAlgorithmClass.h"
 
 using namespace System;
 
