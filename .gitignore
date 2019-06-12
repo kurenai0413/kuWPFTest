@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /kuWPFTest/WIN_20190412_11_54_22_Pro.jpg
+/kuOpenCVClassTest/UniColor_Peggy_A2.jpg
+/kuOpenCVClassTestProgram/OpenCV341_vc15_x64d_noCUDA.props

@@ -1,5 +1,11 @@
 #include "kuOpenCVNativeCameraClass.h"
 
+#ifdef _DEBUG
+#define ShowDebugImage true
+#endif
+
+//#define SingleImageTest true
+
 #pragma region // Pre-processor define //
 #define ResizeScale						3
 
@@ -227,7 +233,7 @@ kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuOpenCVNativeCameraCl
 	m_DefaultWidth	   = 1280;
 	m_DefaultHeight	   = 720;
 
-	std::cout << "Native constructor called." << std::endl;
+	//std::cout << "Native constructor called." << std::endl;
 }
 
 kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::~kuOpenCVNativeCameraClassImpl()
@@ -410,8 +416,12 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGetCameraStatus
 
 bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGetProcessingFrame()
 {
+#ifdef SingleImageTest
+	m_OriginalCameraFrame = imread("UniColor_Peggy_A2.jpg", 1);
+#else
 	m_TestImage.copyTo(m_OriginalCameraFrame);
-
+#endif
+	
 	return true;
 }
 
@@ -447,6 +457,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 	float scale = (float)1 / (float)ResizeScale;
 
+#ifdef SingleImageTest
+	cv::resize(m_OriginalCameraFrame, m_OriginalCameraFrame, cv::Size(1280, 720));
+#endif
+
 	m_OriginalCameraFrame.copyTo(displayImg);
 	cv::resize(m_OriginalCameraFrame, colorImgQuarter, cv::Size(scale * m_OriginalCameraFrame.cols, scale * m_OriginalCameraFrame.rows));
 
@@ -454,7 +468,7 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 	updatedHSVImg		 = cv::Mat::zeros(displayImg.rows, displayImg.cols, CV_8UC3);
 
 	#pragma region // Color space conversion //
-	cv::cvtColor(m_OriginalCameraFrame, updatedHSVImg, CV_BGR2HSV);	
+	cv::cvtColor(m_OriginalCameraFrame, updatedHSVImg, CV_RGB2HSV);	
 
 	cv::imshow("Updated HSV Image", updatedHSVImg);
 	#pragma endregion
@@ -757,11 +771,9 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		}
 
 		cv::imshow("maskWithoutFace", maskWithoutFace);
-
-		
+	
 		cv::Mat maskWithoutFaceColorImg = cv::Mat::zeros(paddingROIImg.rows, paddingROIImg.cols, CV_8UC3);
-		
-		
+			
 		for (int j = 0; j < FGMask.rows; j++)
 		{
 			for (int i = 0; i < FGMask.cols; i++)
@@ -788,8 +800,6 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		cv::Mat hairMaskColorImg = cv::Mat::zeros(paddingROIImg.rows, paddingROIImg.cols, CV_8UC3);
 		filteredHairMask = cv::Mat::zeros(paddingROIImg.rows, paddingROIImg.cols, CV_8UC1);
 
-		std::cout << "chin region tl point:" << chinRegionTLPoint.y << std::endl;
-
 		for (int j = 0; j < FGMask.rows; j++)
 		{
 			for (int i = 0; i < FGMask.cols; i++)
@@ -801,9 +811,6 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 					uchar HVal = paddingROIHSVImg.at<uchar>(j, 3 * i);
 					uchar SVal = paddingROIHSVImg.at<uchar>(j, 3 * i + 1);
 					uchar VVal = paddingROIHSVImg.at<uchar>(j, 3 * i + 2);
-
-					//uchar CrVal = paddingROIYCrCbImg.at<uchar>(j, 3 * i + 1);
-					//uchar CbVal = paddingROIYCrCbImg.at<uchar>(j, 3 * i + 2);
 
 					uchar valInFacialRegion = maskWithoutFace.at<uchar>(j, i);
 
@@ -827,10 +834,6 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 							hairMaskColorImg.at<uchar>(j, 3 * i + 2) = m_OriginalCameraFrame.at<uchar>(idxInOriY, 3 * idxInOriX + 2);
 
 							// Apply new hair color to image //
-								//updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX)	  = ColorHue;
-								//updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 1) = 1.5f * SVal;
-								//updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 2) = 1.5f * VVal;
-
 							//updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX)	  = ColorHue;
 							//updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 1) = 91;
 							//updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 2) = 190;
@@ -842,14 +845,12 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 		cv::imshow("hairMaskColorImg", hairMaskColorImg);
 		#pragma endregion
-
-		
+	
 		if (!m_FinalHairMask.empty())
 		{
 			m_FinalHairMask.release();
 		}
 
-		
 		//cv::Mat filteredHairImg = cv::Mat::zeros(hairMaskColorImg.rows, hairMaskColorImg.cols, CV_8UC3);
 		cv::Mat filteredHairColorImg = cv::Mat::zeros(hairMaskColorImg.rows, hairMaskColorImg.cols, CV_8UC3);
 		cv::Mat	hairMaskHSVImg;
@@ -866,12 +867,6 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 		CalculateRGBRegionMeanAndSTDExcludeBlack(hairMaskColorImg, newBMean, newBStd, newGMean, newGStd, newRMean, newRStd);
 
-		std::cout << newBMean << ", " << newBStd << std::endl;
-		std::cout << newGMean << ", " << newGStd << std::endl;
-		std::cout << newRMean << ", " << newRStd << std::endl;
-
-		//CalculateRegionMeanAndSTDExcludeBlack(hairMaskColorImg, hairMaskHSVImg, newHMean, newHStd, newSMean, newSStd, newVMean, newVStd);
-
 		int maxSVal, minSVal;
 		int maxVVal, minVVal;
 
@@ -882,10 +877,6 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		{
 			for (int i = 0; i < hairMaskColorImg.cols; i++)
 			{
-				//uchar HVal = hairMaskHSVImg.at<uchar>(j, 3 * i);
-				//uchar SVal = hairMaskHSVImg.at<uchar>(j, 3 * i + 1);
-				//uchar VVal = hairMaskHSVImg.at<uchar>(j, 3 * i + 2);
-
 				int idxInOriX = i + paddingROI.x;
 				int idxInOriY = j + paddingROI.y;
 
@@ -901,49 +892,14 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 					(GVal > (newGMean - newGStd)) && (GVal < (newGMean + newGStd)) &&
 					(RVal > (newRMean - newRStd)) && (RVal < (newRMean + newRStd)))
 				{
-					#pragma region // Update max and min //
-					if (firstCnt == 0)
-					{
-						maxSVal = SVal;
-						minSVal = SVal;
-
-						maxVVal = VVal;
-						minVVal = VVal;
-
-						firstCnt++;
-					}
-
-					if (SVal > maxSVal)
-					{
-						maxSVal = SVal;
-					}
-
-					if (VVal > maxVVal)
-					{
-						maxVVal = VVal;
-					}
-
-					if (SVal < minSVal)
-					{
-						minSVal = SVal;
-					}
-
-					if (VVal < minVVal)
-					{
-						minVVal = VVal;
-					}
-					#pragma endregion
-
-					std::cout << (int)VVal << std::endl;
-
 					m_FinalHairMask.at<uchar>(j, 3 * i) = 255;
 					m_FinalHairMask.at<uchar>(j, 3 * i + 1) = 255;
 					m_FinalHairMask.at<uchar>(j, 3 * i + 2) = 255;
 
 					// Apply new hair color to image //
 					updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX)	  = ColorHue;
-					updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 1) = 255;
-					updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 2) = VVal;
+					updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 1) = 1.5 * SVal;
+					updatedHSVImg.at<uchar>(idxInOriY, 3 * idxInOriX + 2) = 1.5 * VVal;
 				}
 			}
 		}
@@ -951,7 +907,7 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		cv::imshow("filteredHairImg", m_FinalHairMask);
 		#pragma endregion
 		
-		cv::cvtColor(updatedHSVImg, updatedCamFrame, CV_HSV2BGR);
+		cv::cvtColor(updatedHSVImg, updatedCamFrame, CV_HSV2RGB);
 		cv::imshow("Updated Camera Frame", updatedCamFrame);
 
 		return true;
@@ -1001,8 +957,8 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::GenerateNewPt(cv:
 	int newX = oriPt.x + xShiftScale * faceWidth;
 	int newY = oriPt.y + yShiftScale * faceHeight;
 
-	//JudgeCoodinateVal(m_DefaultWidth, newX);
-	//JudgeCoodinateVal(m_DefaultHeight, newY);
+	JudgeCoodinateVal(m_DefaultWidth, newX);
+	JudgeCoodinateVal(m_DefaultHeight, newY);
 
 	newPt = cv::Point(newX, newY);
 }
