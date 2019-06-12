@@ -36,6 +36,10 @@ namespace kuCLRWrapper
 		bool kuGetProcessingFrame();
 		bool kuGenerateHairMask();
 
+		bool kuLoadDlibModels();
+
+		void kuShowFinalHairMask();
+
 	private:
 		kuOpenCVNativeCameraClass * kuOpenCVClassPtr;
 	};

@@ -44,6 +44,16 @@ bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuGenerateHairMask()
 	return kuOpenCVClassPtr->kuGenerateHairMask();
 }
 
+bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuLoadDlibModels()
+{
+	return kuOpenCVClassPtr->kuLoadDlibModels();
+}
+
+void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuShowFinalHairMask()
+{
+	kuOpenCVClassPtr->kuShowFinalHairMask();
+}
+
 void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuCloseCamera()
 {
 	kuOpenCVClassPtr->kuCloseCamera();

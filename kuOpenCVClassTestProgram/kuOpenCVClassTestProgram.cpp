@@ -17,7 +17,7 @@ void main()
 
 	int frameCnt = 0;
 
-	while (camFlag)
+	/*while (camFlag)
 	{
 		kuOpenCVClassObj.kuGetCamframe();
 		kuOpenCVClassObj.kuShowImage();
@@ -25,7 +25,12 @@ void main()
 		frameCnt++;
 
 		std::cout << frameCnt << std::endl;
-	}
+	}*/
+
+	kuOpenCVClassObj.kuGetCamframe();
+	kuOpenCVClassObj.kuGetProcessingFrame();
+	kuOpenCVClassObj.kuGenerateHairMask();
+	kuOpenCVClassObj.kuShowProcessedImage();
 
 	system("pause");
 }

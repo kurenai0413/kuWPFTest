@@ -33,6 +33,8 @@ namespace kuWPFTest
         {
             InitializeComponent();
 
+            wrapperObj.kuLoadDlibModels();
+
             PictureBoxHandle = PictureBox.Handle;
             wrapperObj.kuCreateWindow("TestView", (int)PictureBoxHandle, 1600, 900);
         }
@@ -103,6 +105,8 @@ namespace kuWPFTest
                 wrapperObj.kuGetProcessingFrame();
                 wrapperObj.kuGenerateHairMask();
                 wrapperObj.kuShowProcessedImage();
+
+                //wrapperObj.kuShowFinalHairMask();
             }
         }
 

@@ -8,55 +8,44 @@
 #include <windows.h>
 #include <iostream>
 
-#include <opencv2/opencv.hpp>
-
-using namespace cv;
-
-class kuOpenCVNativeCameraClass
+class KUOPENCVNATIVECAMERACLASS_API kuOpenCVNativeCameraClass
 {
 public:
-
-	KUOPENCVNATIVECAMERACLASS_API kuOpenCVNativeCameraClass();
-	KUOPENCVNATIVECAMERACLASS_API ~kuOpenCVNativeCameraClass();
-
-	KUOPENCVNATIVECAMERACLASS_API void kuSetParentHWND(HWND parentHWND);
-	KUOPENCVNATIVECAMERACLASS_API void kuSetWindowName(std::string windowName);
-
-	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName);
-	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, int wndWidth, int wndHeight);
-	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, double imgScale);
-	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, int handle);
-	KUOPENCVNATIVECAMERACLASS_API void kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight);
-	KUOPENCVNATIVECAMERACLASS_API void kuDestroyCurrentWindow();
+	kuOpenCVNativeCameraClass();
+	~kuOpenCVNativeCameraClass();
 	
-	KUOPENCVNATIVECAMERACLASS_API bool kuLoadImage(std::string filePath);
-	KUOPENCVNATIVECAMERACLASS_API void kuSaveImage(std::string filePath);
-	KUOPENCVNATIVECAMERACLASS_API void kuSetImageDefault();
-	KUOPENCVNATIVECAMERACLASS_API void kuShowImage();
-	KUOPENCVNATIVECAMERACLASS_API void kuShowProcessedImage();
+	void kuSetParentHWND(HWND parentHWND);
+	void kuSetWindowName(std::string windowName);
 
-	KUOPENCVNATIVECAMERACLASS_API bool kuStartCamera(int cameraIdx);
-	KUOPENCVNATIVECAMERACLASS_API void kuCloseCamera();
+	void kuCreateWindow(std::string windowName);
+	void kuCreateWindow(std::string windowName, int wndWidth, int wndHeight);
+	void kuCreateWindow(std::string windowName, double imgScale);
+	void kuCreateWindow(std::string windowName, int handle);
+	void kuCreateWindow(std::string windowName, int handle, int wndWidth, int wndHeight);
+	void kuDestroyCurrentWindow();
 
-	KUOPENCVNATIVECAMERACLASS_API bool kuGetCamframe();
-	KUOPENCVNATIVECAMERACLASS_API bool kuGetCameraStatus();
+	bool kuLoadImage(std::string filePath);
+	void kuSaveImage(std::string filePath);
+	void kuSetImageDefault();
+	void kuShowImage();
+	void kuShowProcessedImage();
 
-	KUOPENCVNATIVECAMERACLASS_API bool kuGetProcessingFrame();
-	KUOPENCVNATIVECAMERACLASS_API bool kuGenerateHairMask();
-	
+	bool kuStartCamera(int cameraIdx);
+	void kuCloseCamera();
+
+	bool kuGetCamframe();
+	bool kuGetCameraStatus();
+
+	bool kuGetProcessingFrame();
+	bool kuGenerateHairMask();
+
+	bool kuLoadDlibModels();
+
+	#pragma region // For debug //
+	void kuShowFinalHairMask();
+	#pragma endregion
 
 private:
-	int					m_DefaultWidth;
-	int					m_DefaultHeight;
-
-	Mat					m_TestImage;
-	Mat					m_OriginalCameraFrame;
-	std::string			m_CurrnetWindowName;
-
-	VideoCapture		m_CamCapture;
-
-	int					m_CameraIdx;
-
-	bool				m_isCameraOpened;
-	bool				m_WindowCreateFlag;
+	class kuOpenCVNativeCameraClassImpl;
+	std::unique_ptr<kuOpenCVNativeCameraClassImpl> pimpl;
 };
