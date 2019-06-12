@@ -16,7 +16,7 @@
         <Button Content="Close Camera" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
                 Margin="22,1012,0,0" VerticalAlignment="Top" Width="250" Height="40" 
                 FontSize="20" x:Name="CloseCameraButton" Click="CloseCameraButton_Click" FontWeight="Bold"/>
-        <Button Content="Change Hair Color" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
+        <Button Content="Capture Image" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
                 Margin="903,970,0,0" VerticalAlignment="Top" Width="275" Height="68" 
                 FontSize="20" x:Name="ProcessingButton" Click="ProcessingButton_Click" FontWeight="Bold"/>
         <WindowsFormsHost HorizontalAlignment="Center" Height="900" Margin="275,28,37,0" 
@@ -28,16 +28,19 @@
                    Margin="301,968,0,0" TextWrapping="Wrap" Name="CameraStatusText" 
                    Text="Camera is closed." FontSize="20" Width="254" Height="40" Foreground="White"/>
         <Button Content="#BE9C7A" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
-            Margin="22,318,0,0" VerticalAlignment="Top" Width="200" Height="50" 
+            Margin="35,320,0,0" VerticalAlignment="Top" Width="200" Height="50" 
             FontSize="24" x:Name="SetColorButton1" Click="SetColorButton1_Click" Background="#FFBE9C7A" Foreground="White"/>
         <Button Content="#CA3A1C" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
-            Margin="22,424,0,0" VerticalAlignment="Top" Width="200" Height="50" 
+            Margin="35,430,0,0" VerticalAlignment="Top" Width="200" Height="50" 
             FontSize="24" x:Name="SetColorButton2" Click="SetColorButton2_Click" Background="#FFCA3A1C" Foreground="White"/>
         <Button Content="#A80001" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
-            Margin="22,524,0,0" VerticalAlignment="Top" Width="200" Height="50" 
+            Margin="35,540,0,0" VerticalAlignment="Top" Width="200" Height="50" 
             FontSize="24" x:Name="SetColorButton3" Click="SetColorButton3_Click" Background="#FFA80001" Foreground="White"/>
         <Button Content="#A62C42" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
-            Margin="22,635,0,0" VerticalAlignment="Top" Width="200" Height="50" 
+            Margin="35,650,0,0" VerticalAlignment="Top" Width="200" Height="50" 
             FontSize="24" x:Name="SetColorButton4" Click="SetColorButton4_Click" Background="#FFA62C42" Foreground="White"/>
+        <Button Content=" X " HorizontalAlignment="Left" Margin="1807,976,0,0" VerticalAlignment="Top" Width="68" Height="53" 
+                FontSize="24" x:Name="CloseAppButton" Click="CloseAppButton_Click"/>
+        <Image Source="Image/UniColor_Logo.jpg" HorizontalAlignment="Left" Width="250" Height="250" Margin="13,28,0,0" VerticalAlignment="Top" />
     </Grid>
 </Window>

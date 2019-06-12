@@ -146,5 +146,10 @@ namespace kuWPFTest
             wrapperObj.kuSetHairHueColor(m_HairHueValue);
             wrapperObj.kuChangeHairColor();
         }
+
+        private void CloseAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
