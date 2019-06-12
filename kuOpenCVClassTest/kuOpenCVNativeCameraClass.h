@@ -33,14 +33,16 @@ public:
 	KUOPENCVNATIVECAMERACLASS_API void kuSaveImage(std::string filePath);
 	KUOPENCVNATIVECAMERACLASS_API void kuSetImageDefault();
 	KUOPENCVNATIVECAMERACLASS_API void kuShowImage();
-
-	KUOPENCVNATIVECAMERACLASS_API Mat * kuGetProcessingImagePointer();
+	KUOPENCVNATIVECAMERACLASS_API void kuShowProcessedImage();
 
 	KUOPENCVNATIVECAMERACLASS_API bool kuStartCamera(int cameraIdx);
 	KUOPENCVNATIVECAMERACLASS_API void kuCloseCamera();
 
 	KUOPENCVNATIVECAMERACLASS_API bool kuGetCamframe();
 	KUOPENCVNATIVECAMERACLASS_API bool kuGetCameraStatus();
+
+	KUOPENCVNATIVECAMERACLASS_API bool kuGetProcessingFrame();
+	KUOPENCVNATIVECAMERACLASS_API bool kuGenerateHairMask();
 	
 
 private:
@@ -48,7 +50,7 @@ private:
 	int					m_DefaultHeight;
 
 	Mat					m_TestImage;
-	Mat				*	m_ProcessingImage;
+	Mat					m_OriginalCameraFrame;
 	std::string			m_CurrnetWindowName;
 
 	VideoCapture		m_CamCapture;
@@ -57,6 +59,4 @@ private:
 
 	bool				m_isCameraOpened;
 	bool				m_WindowCreateFlag;
-
-	void				kuCameraThdFun();
 };

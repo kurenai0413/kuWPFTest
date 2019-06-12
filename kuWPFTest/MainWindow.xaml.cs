@@ -96,7 +96,14 @@ namespace kuWPFTest
 
         private void ProcessingButton_Click(object sender, RoutedEventArgs e)
         {
+            if (IsCameraOpened)
+            {
+                IsCameraOpened = false;
 
+                wrapperObj.kuGetProcessingFrame();
+                wrapperObj.kuGenerateHairMask();
+                wrapperObj.kuShowProcessedImage();
+            }
         }
 
         private void SetColorButton1_Click(object sender, RoutedEventArgs e)

@@ -30,17 +30,11 @@ KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuShowImage()
 	cv::waitKey(33);
 }
 
-KUOPENCVNATIVECAMERACLASS_API Mat * kuOpenCVNativeCameraClass::kuGetProcessingImagePointer()
+KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuShowProcessedImage()
 {
-	return m_ProcessingImage;
+	cv::imshow(m_CurrnetWindowName, m_OriginalCameraFrame);
+	cv::waitKey(33);
 }
-
-//KUOPENCVCLASSTEST_API void kuOpenCVClass::kuShowDefault()
-//{
-//	m_TestImage = cv::Mat::zeros(m_DefaultHeight, m_DefaultWidth, CV_8UC1);
-//	cv::imshow(m_WindowName, m_TestImage);
-//	cv::waitKey(0);
-//}
 
 KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuSetWindowName(std::string windowName)
 {
@@ -160,9 +154,13 @@ KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuStartCamera(int 
 			bool setWidthFlag  = m_CamCapture.set(cv::CAP_PROP_FRAME_WIDTH, m_DefaultWidth);
 			bool setHeightFlag = m_CamCapture.set(cv::CAP_PROP_FRAME_HEIGHT, m_DefaultHeight);
 
-			if (m_ProcessingImage->empty())
+			if (m_OriginalCameraFrame.empty())
 			{
-				m_ProcessingImage->create(m_DefaultHeight, m_DefaultWidth, CV_8UC3);
+				m_OriginalCameraFrame = cv::Mat::zeros(m_DefaultHeight, m_DefaultWidth, CV_8UC3);
+			
+				#ifdef _DEBUG
+				cv::imshow("Original camera frame", m_OriginalCameraFrame);
+				#endif
 			}
 
 			m_isCameraOpened = true;
@@ -189,6 +187,20 @@ KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuGetCameraStatus(
 		return true;
 	else
 		return false;
+}
+
+KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuGetProcessingFrame()
+{
+	m_TestImage.copyTo(m_OriginalCameraFrame);
+
+	return true;
+}
+
+KUOPENCVNATIVECAMERACLASS_API bool kuOpenCVNativeCameraClass::kuGenerateHairMask()
+{
+	cv::cvtColor(m_OriginalCameraFrame, m_OriginalCameraFrame, CV_BGR2GRAY);
+
+	return true;
 }
 
 KUOPENCVNATIVECAMERACLASS_API void kuOpenCVNativeCameraClass::kuCloseCamera()

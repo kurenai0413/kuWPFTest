@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kuWPFOpenCVTest", "kuWPFTest\kuWPFOpenCVTest.csproj", "{73D2028C-605B-44C3-808F-A9B0F1550709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iSSA_UniColor", "kuWPFTest\iSSA_UniColor.csproj", "{73D2028C-605B-44C3-808F-A9B0F1550709}"
 	ProjectSection(ProjectDependencies) = postProject
 		{239461D0-9457-4DB5-8AAB-847102D465C6} = {239461D0-9457-4DB5-8AAB-847102D465C6}
 	EndProjectSection
@@ -76,7 +76,6 @@ Global
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Debug|x86.Build.0 = Debug|Win32
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|Any CPU.ActiveCfg = Release|Win32
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x64.ActiveCfg = Release|x64
-		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x64.Build.0 = Release|x64
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x86.ActiveCfg = Release|Win32
 		{04531D19-2BD6-42C4-BFB0-443F29823C4D}.Release|x86.Build.0 = Release|Win32
 		{29EB6794-7ABF-4C1C-ABBE-ACB6C1204582}.Debug|Any CPU.ActiveCfg = Debug|Win32

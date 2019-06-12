@@ -34,6 +34,16 @@ bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuGetCameraStatus()
 	return kuOpenCVClassPtr->kuGetCameraStatus();
 }
 
+bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuGetProcessingFrame()
+{
+	return kuOpenCVClassPtr->kuGetProcessingFrame();
+}
+
+bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuGenerateHairMask()
+{
+	return kuOpenCVClassPtr->kuGenerateHairMask();
+}
+
 void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuCloseCamera()
 {
 	kuOpenCVClassPtr->kuCloseCamera();
@@ -84,17 +94,8 @@ void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuShowImage()
 	kuOpenCVClassPtr->kuShowImage();
 }
 
-kuCLRWrapper::kuOpenCVAlgorithmClassWrapper::kuOpenCVAlgorithmClassWrapper()
+void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuShowProcessedImage()
 {
-	throw gcnew System::NotImplementedException();
+	kuOpenCVClassPtr->kuShowProcessedImage();
 }
-
-kuCLRWrapper::kuOpenCVAlgorithmClassWrapper::~kuOpenCVAlgorithmClassWrapper()
-{
-	throw gcnew System::NotImplementedException();
-}
-#pragma endregion
-
-#pragma region // kuOpenCVAlgorithmClassWrapper //
-
 #pragma endregion
