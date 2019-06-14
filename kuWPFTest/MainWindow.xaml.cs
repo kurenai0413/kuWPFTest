@@ -55,7 +55,7 @@ namespace kuWPFTest
         private void StartCameraFun()
         {
             IsCameraOpened = wrapperObj.kuStartCamera(0);
-
+            
             if (IsCameraOpened)
             {
                 CameraStatusText.Text = "Camera is opened.";
@@ -80,6 +80,8 @@ namespace kuWPFTest
             if (IsCameraOpened)
             {
                 IsCameraOpened = false;
+
+                wrapperObj.kuCloseCamera();
             }
         }
 
@@ -98,22 +100,19 @@ namespace kuWPFTest
 
         private void FrameProcessingFun()
         {
-            wrapperObj.kuGetProcessingFrame();
-            wrapperObj.kuCloseCamera();
-            wrapperObj.kuShowProcessedImage();
-
-            IsCameraOpened = false;
-
             wrapperObj.kuSetHairHueColor(m_HairHueValue);
             m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
 
             if (m_isHairMaskGenerated)
             {
-                wrapperObj.kuChangeHairColor();
+                MessageBox.Show("Face is detected");
             }
             else
             {
-                StartCameraFun();
+                MessageBox.Show("Face is not detected");
+                CameraStatusText.Text = "Face is not detected.";
+
+                //StartCameraFun();
             }
         }
 
@@ -138,8 +137,33 @@ namespace kuWPFTest
             {
                 IsCameraOpened = false;
 
-                ProcessingThread = new Thread(FrameProcessingFun);
-                ProcessingThread.Start();
+                wrapperObj.kuGetProcessingFrame();
+                wrapperObj.kuCloseCamera();
+                wrapperObj.kuShowProcessedImage();
+
+                //ProcessingThread = new Thread(FrameProcessingFun);
+                //ProcessingThread.Start();
+                
+                wrapperObj.kuSetHairHueColor(m_HairHueValue);
+
+                CameraStatusText.Text = "Start processing.";
+                //MessageBox.Show("Start processing");
+
+                m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
+
+                if (m_isHairMaskGenerated)
+                {
+                    wrapperObj.kuChangeHairColor();
+                }
+                else
+                {
+                    MessageBox.Show("Face is not detected");
+                    CameraStatusText.Text = "Face is not detected.";
+
+                    StartCameraFun();
+                }
+
+                CameraStatusText.Text = "Processing done." + m_isHairMaskGenerated;
             }
         }
 

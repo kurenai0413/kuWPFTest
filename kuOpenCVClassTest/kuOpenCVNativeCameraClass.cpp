@@ -544,10 +544,13 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 	if (faces.size() <= 0)
 	{
+		file << "Return false." << std::endl;
+
 		return false;
 	}
 	else
 	{
+		
 		FindMaxAreaFace(faces, maxAreaFaceIdx);
 
 		#pragma region // Extract facial region by shape components //
@@ -1041,10 +1044,6 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 #endif
 		#pragma endregion
 		
-		//ChangeHairRegionColor(m_FinalHairMask, m_HueValue);
-
-		//cv::cvtColor(m_UpdatedHSVImg, m_UpdatedCamFrame, CV_HSV2RGB);
-		//cv::imshow(m_CurrnetWindowName, m_UpdatedCamFrame);
 
 		return true;
 	}
