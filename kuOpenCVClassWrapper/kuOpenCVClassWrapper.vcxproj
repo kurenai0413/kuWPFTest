@@ -69,6 +69,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="OpenCV341_x64_noCUDA.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -88,7 +89,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Codes\WPF\kuWPFTest\kuOpenCVClassTest;$(IncludePath)</IncludePath>
+    <IncludePath>..\kuOpenCVClassTest;$(IncludePath)</IncludePath>
     <LibraryPath>..\kuWPFTest\bin\Debug;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_x64d</TargetName>
     <OutDir>..\kuWPFTest\bin\Debug</OutDir>

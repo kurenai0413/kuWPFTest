@@ -25,7 +25,10 @@ namespace kuWPFTest
     {
         bool    IsCameraOpened = false;
         IntPtr  PictureBoxHandle;
+
         Thread  CameraThread;
+        Thread  ProcessingThread;
+
         int     m_HairHueValue;
 
         bool    m_isHairMaskGenerated = false;
@@ -49,21 +52,26 @@ namespace kuWPFTest
 
         }
 
+        private void StartCameraFun()
+        {
+            IsCameraOpened = wrapperObj.kuStartCamera(0);
+
+            if (IsCameraOpened)
+            {
+                CameraStatusText.Text = "Camera is opened.";
+
+                CameraThread = new Thread(CameraThreadFun);
+                CameraThread.Start();
+
+                m_isHairMaskGenerated = false;
+            }
+        }
+
         private void OpenCameraButton_Click(object sender, RoutedEventArgs e)
         {            
             if (!IsCameraOpened)
             {
-                IsCameraOpened = wrapperObj.kuStartCamera(0);
-
-                if (IsCameraOpened)
-                {
-                    CameraStatusText.Text = "Camera is opened.";
-
-                    CameraThread = new Thread(CameraThreadFun);
-                    CameraThread.Start();
-                    
-                    m_isHairMaskGenerated = false;
-                }
+                StartCameraFun();
             }
         }
 
@@ -88,6 +96,27 @@ namespace kuWPFTest
             }
         }
 
+        private void FrameProcessingFun()
+        {
+            wrapperObj.kuGetProcessingFrame();
+            wrapperObj.kuCloseCamera();
+            wrapperObj.kuShowProcessedImage();
+
+            IsCameraOpened = false;
+
+            wrapperObj.kuSetHairHueColor(m_HairHueValue);
+            m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
+
+            if (m_isHairMaskGenerated)
+            {
+                wrapperObj.kuChangeHairColor();
+            }
+            else
+            {
+                StartCameraFun();
+            }
+        }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             IsCameraOpened = false;
@@ -109,42 +138,49 @@ namespace kuWPFTest
             {
                 IsCameraOpened = false;
 
-                wrapperObj.kuGetProcessingFrame();
-                wrapperObj.kuCloseCamera();
-                wrapperObj.kuShowProcessedImage();
-
-                wrapperObj.kuSetHairHueColor(m_HairHueValue);
-                m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
-                wrapperObj.kuChangeHairColor();
+                ProcessingThread = new Thread(FrameProcessingFun);
+                ProcessingThread.Start();
             }
         }
 
         private void SetColorButton1_Click(object sender, RoutedEventArgs e)
         {
-            m_HairHueValue = 105; // BE9C7A
-            wrapperObj.kuSetHairHueColor(m_HairHueValue);
-            wrapperObj.kuChangeHairColor();
+            if (m_isHairMaskGenerated)
+            {
+                m_HairHueValue = 105; // BE9C7A
+                wrapperObj.kuSetHairHueColor(m_HairHueValue);
+                wrapperObj.kuChangeHairColor();
+            }
         }
 
         private void SetColorButton2_Click(object sender, RoutedEventArgs e)
         {
-            m_HairHueValue = 115; // CA3A1C
-            wrapperObj.kuSetHairHueColor(m_HairHueValue);
-            wrapperObj.kuChangeHairColor();
+            if (m_isHairMaskGenerated)
+            {
+                m_HairHueValue = 115; // CA3A1C
+                wrapperObj.kuSetHairHueColor(m_HairHueValue);
+                wrapperObj.kuChangeHairColor();
+            }
         }
 
         private void SetColorButton3_Click(object sender, RoutedEventArgs e)
         {
-            m_HairHueValue = 120; // A80001
-            wrapperObj.kuSetHairHueColor(m_HairHueValue);
-            wrapperObj.kuChangeHairColor();
+            if (m_isHairMaskGenerated)
+            {
+                m_HairHueValue = 120; // A80001
+                wrapperObj.kuSetHairHueColor(m_HairHueValue);
+                wrapperObj.kuChangeHairColor();
+            }
         }
 
         private void SetColorButton4_Click(object sender, RoutedEventArgs e)
         {
-            m_HairHueValue = 125; // A62C42
-            wrapperObj.kuSetHairHueColor(m_HairHueValue);
-            wrapperObj.kuChangeHairColor();
+            if (m_isHairMaskGenerated)
+            {
+                m_HairHueValue = 125; // A62C42
+                wrapperObj.kuSetHairHueColor(m_HairHueValue);
+                wrapperObj.kuChangeHairColor();
+            }
         }
 
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)

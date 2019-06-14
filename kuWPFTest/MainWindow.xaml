@@ -41,6 +41,6 @@
             FontSize="24" x:Name="SetColorButton4" Click="SetColorButton4_Click" Background="#FFA62C42" Foreground="White"/>
         <Button Content=" X " HorizontalAlignment="Left" Margin="1807,976,0,0" VerticalAlignment="Top" Width="68" Height="53" 
                 FontSize="24" x:Name="CloseAppButton" Click="CloseAppButton_Click"/>
-        <Image Source="Image/UniColor_Logo.jpg" HorizontalAlignment="Left" Width="250" Height="250" Margin="13,28,0,0" VerticalAlignment="Top" />
+        <Image Source="Image/UniColor_Logo.jpg" HorizontalAlignment="Left" Width="250" Height="250" Margin="13,13,0,0" VerticalAlignment="Top" />
     </Grid>
 </Window>

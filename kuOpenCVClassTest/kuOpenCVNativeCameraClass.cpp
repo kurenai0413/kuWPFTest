@@ -4,7 +4,9 @@
 #define ShowDebugImage true
 #endif
 
-#define SingleImageTest true
+//#define SingleImageTest true
+
+#define ShowDebugLog true;
 
 #pragma region // Pre-processor define //
 #define ResizeScale						3
@@ -481,13 +483,26 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 	cv::resize(m_OriginalCameraFrame, m_OriginalCameraFrame, cv::Size(1280, 720));
 #endif
 
+#ifdef ShowDebugLog
+	std::fstream file;
+	file.open("ProcessingDebugLog.txt", std::ios::out);
+#endif
+
 	m_OriginalCameraFrame.copyTo(displayImg);
 	cv::resize(m_OriginalCameraFrame, colorImgQuarter, cv::Size(scale * m_OriginalCameraFrame.cols, scale * m_OriginalCameraFrame.rows));
+
+#ifdef ShowDebugLog
+	file << "Camera frame resize to quarter done." << std::endl;
+#endif
 
 	faceContourRegionImg = cv::Mat::zeros(displayImg.rows, displayImg.cols, CV_8UC3);
 	m_UpdatedHSVImg		 = cv::Mat::zeros(displayImg.rows, displayImg.cols, CV_8UC3);
 
 	cv::cvtColor(m_OriginalCameraFrame, m_UpdatedHSVImg, CV_RGB2HSV);
+
+#ifdef ShowDebugLog
+	file << "Camera frame HSV conversion done." << std::endl;
+#endif
 
 	#pragma region // Detect faces //
 	cv::cvtColor(colorImgQuarter, grayImgQuarter, CV_BGRA2GRAY);
@@ -495,6 +510,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 	// Detect faces 
 	faces = detector(imgQuarter_dlib);
+
+#ifdef ShowDebugLog
+	file << "Face detection done." << std::endl;
+#endif
 	#pragma endregion
 
 	int maxAreaFaceIdx;
@@ -545,6 +564,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 			cv::cvtColor(faceContourRegionImg, faceContourRegionImg, CV_BGR2GRAY);
 			//cv::imshow("Face contour region", faceContourRegionImg);
 		}
+
+#ifdef ShowDebugLog
+		file << "Face shape arrangement done." << std::endl;
+#endif
 		#pragma endregion
 
 		#pragma region // Define face detection result region //
@@ -554,6 +577,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		faceROI = cv::Rect(tlCorner, brCorner);
 		//std::cout << faceROI.x << ", " << faceROI.y << " | " << faceROI.width << ", " << faceROI.height << std::endl;
 		//faceROIImg = colorImg(faceROI);
+
+#ifdef ShowDebugLog
+		file << "Face ROI extraction done." << std::endl;
+#endif
 		#pragma endregion
 
 		int originalFaceWidth	= ResizeScale * (int)abs(faces[maxAreaFaceIdx].left() - faces[maxAreaFaceIdx].right());
@@ -578,6 +605,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 #ifdef ShowDebugImage
 		cv::imshow("Indent ROI Image", indentROIImg);
 #endif
+
+#ifdef ShowDebugLog
+		file << "Indent ROI extraction done." << std::endl;
+#endif
 		#pragma endregion
 	
 		#pragma region // Crop padding ROI image //
@@ -592,6 +623,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 #ifdef ShowDebugImage
 		cv::imshow("Padding ROI Image", paddingROIImg);
 		cv::imwrite("PaddingROIImage.bmp", paddingROIImg);
+#endif
+
+#ifdef ShowDebugLog
+		file << "Padding ROI extraction done." << std::endl;
 #endif
 		#pragma endregion
 
@@ -625,6 +660,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		cv::imshow("Padding face contour region", paddingFaceContourRegionImg);
 		//cv::imwrite("PaddingFaceContourRegionColorImage.bmp", paddingFaceContourRegionColorImg);
 		cv::imwrite("paddingFaceContourRegionImg.bmp", paddingFaceContourRegionImg);
+#endif
+
+#ifdef ShowDebugLog
+		file << "Padding face contour region extraction done." << std::endl;
 #endif
 		#pragma endregion
 
@@ -667,6 +706,9 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		//std::cout << foreheadRegionBRPoint << std::endl;
 
 		//cv::rectangle(paddingROIImg, chinRegionTLPoint, chinRegionBRPoint, CV_RGB(0, 255, 0), 1, CV_AA);
+#ifdef ShowDebugLog
+		file << "Color model region done." << std::endl;
+#endif
 		#pragma endregion
 
 		#pragma region // Extract skin color model //
@@ -690,6 +732,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		CalculateRegionMeanAndSTD(indentROIImgHSV, SkinHMean, SkinHStd, SkinSMean, SkinSStd, SkinVMean, SkinVStd);
 		CalculateRegionMeanAndSTD(chinROIHSVImg, chinHMean, chinHStd, chinSMean, chinSStd, chinVMean, chinVStd);
 		CalculateRegionMeanAndSTD(foreheadROIHSVImg, foreheadHMean, foreheadHStd, foreheadSMean, foreheadSStd, foreheadVMean, foreheadSStd);
+		
+#ifdef ShowDebugLog
+		file << "Skin color model extraction done." << std::endl;
+#endif
 		#pragma endregion
 
 		#pragma region // Extract new face region //
@@ -708,6 +754,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 		newFaceROI = cv::Rect(newFaceTLPt, newFaceBRPt);
 		//std::cout << newFaceROI << std::endl;
+
+#ifdef ShowDebugLog
+		file << "New face ROI extraction done." << std::endl;
+#endif
 		#pragma endregion
 
 		#pragma region // Perform grabcut //
@@ -750,6 +800,9 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		cv::imshow("over-whiten pixel filtered mask", FGMask);
 #endif
 		#pragma endregion
+#ifdef ShowDebugLog
+		file << "GrabCut foreground extraction done." << std::endl;
+#endif
 		#pragma endregion
 	
 		#pragma region // Remove facial parts region from foreground mask //
@@ -806,6 +859,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 #ifdef ShowDebugImage
 		cv::imshow("maskWithoutFaceColorImg", maskWithoutFaceColorImg);
 #endif
+
+#ifdef ShowDebugLog
+		file << "GrabCut foreground extraction done." << std::endl;
+#endif
 		#pragma endregion
 
 		#pragma region // Filter skin pixel in maskWithoutFace //
@@ -858,6 +915,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 #ifdef ShowDebugImage
 		cv::imshow("hairMaskColorImg", hairMaskColorImg);
+#endif
+
+#ifdef ShowDebugLog
+		file << "Skin pixel filtering done." << std::endl;
 #endif
 		#pragma endregion
 	
@@ -923,6 +984,11 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 #ifdef ShowDebugImage
 		cv::imshow("filteredHairImg", m_FinalHairMask);
+#endif
+
+#ifdef ShowDebugLog
+		file << "Filter residual pixels done." << std::endl;
+		file.close();
 #endif
 		#pragma endregion
 		
@@ -1216,7 +1282,7 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::ChangeHairRegionC
 	cv::cvtColor(m_OriginalCameraFrame, m_UpdatedHSVImg, CV_RGB2HSV);
 
 #ifdef ShowDebugImage
-	cv::imshow("Updated HSV Image", updatedHSVImg);
+	cv::imshow("Updated HSV Image", m_UpdatedHSVImg);
 #endif
 #pragma endregion
 
