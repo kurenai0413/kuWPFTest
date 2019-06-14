@@ -25,6 +25,7 @@ public:
 	void kuDestroyCurrentWindow();
 
 	bool kuLoadImage(std::string filePath);
+	bool kuLoadProcessingImage(std::string filePath);
 	void kuSaveImage(std::string filePath);
 	void kuSetImageDefault();
 	void kuShowImage();

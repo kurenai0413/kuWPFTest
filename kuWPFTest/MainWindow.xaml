@@ -42,5 +42,8 @@
         <Button Content=" X " HorizontalAlignment="Left" Margin="1807,976,0,0" VerticalAlignment="Top" Width="68" Height="53" 
                 FontSize="24" x:Name="CloseAppButton" Click="CloseAppButton_Click"/>
         <Image Source="Image/UniColor_Logo.jpg" HorizontalAlignment="Left" Width="250" Height="250" Margin="13,13,0,0" VerticalAlignment="Top" />
+        <Button Content="Load Result" HorizontalAlignment="Left" HorizontalContentAlignment="Center" 
+            Margin="1426,984,0,0" VerticalAlignment="Top" Width="275" Height="45" 
+            FontSize="20" x:Name="ProcessingSingleImageButton" Click="ProcessingSingleImageButton_Click" FontWeight="Bold"/>
     </Grid>
 </Window>

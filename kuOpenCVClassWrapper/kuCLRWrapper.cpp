@@ -104,6 +104,12 @@ bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuLoadImage(System::String ^ file
 	return kuOpenCVClassPtr->kuLoadImage(stdWindowName);
 }
 
+bool kuCLRWrapper::kuOpenCVCameraClassWrapper::kuLoadProcessingImage(System::String ^ filePath)
+{
+	std::string stdWindowName = marshal_as<std::string>(filePath);
+	return kuOpenCVClassPtr->kuLoadProcessingImage(stdWindowName);
+}
+
 void kuCLRWrapper::kuOpenCVCameraClassWrapper::kuSetImageDefault()
 {
 	kuOpenCVClassPtr->kuSetImageDefault();

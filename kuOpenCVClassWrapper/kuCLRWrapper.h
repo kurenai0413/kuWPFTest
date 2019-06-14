@@ -22,6 +22,7 @@ namespace kuCLRWrapper
 		void kuDestroyCurrentWindow();
 
 		bool kuLoadImage(System::String ^ filepath);
+		bool kuLoadProcessingImage(System::String ^ filePath);
 		void kuSetImageDefault();
 		void kuShowImage();
 		void kuShowProcessedImage();

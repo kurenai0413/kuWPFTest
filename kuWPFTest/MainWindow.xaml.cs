@@ -187,5 +187,28 @@ namespace kuWPFTest
         {
             Application.Current.Shutdown();
         }
+
+        private void ProcessingSingleImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsCameraOpened)
+            {
+                IsCameraOpened = false;
+
+                wrapperObj.kuCloseCamera();
+            }
+
+            wrapperObj.kuLoadProcessingImage("UniColor_Peggy_A2.jpg");
+            wrapperObj.kuShowProcessedImage();
+
+            IsCameraOpened = false;
+
+            wrapperObj.kuSetHairHueColor(m_HairHueValue);
+            m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
+
+            if (m_isHairMaskGenerated)
+            {
+                wrapperObj.kuChangeHairColor();
+            }
+        }
     }
 }

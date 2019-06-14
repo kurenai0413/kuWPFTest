@@ -1,8 +1,7 @@
 #include "kuOpenCVNativeCameraClass.h"
 
-#ifdef _DEBUG
-#define ShowDebugImage true
-#endif
+
+//#define ShowDebugImage true
 
 //#define SingleImageTest true
 
@@ -54,6 +53,7 @@ public:
 	void kuDestroyCurrentWindow();
 		 
 	bool kuLoadImage(std::string filePath);
+	bool kuLoadProcessingImage(std::string filePath);
 	void kuSaveImage(std::string filePath);
 	void kuSetImageDefault();
 	void kuShowImage();
@@ -173,6 +173,11 @@ void kuOpenCVNativeCameraClass::kuDestroyCurrentWindow()
 bool kuOpenCVNativeCameraClass::kuLoadImage(std::string filePath)
 {
 	return pimpl->kuLoadImage(filePath);
+}
+
+bool kuOpenCVNativeCameraClass::kuLoadProcessingImage(std::string filePath)
+{
+	return pimpl->kuLoadProcessingImage(filePath);
 }
 
 void kuOpenCVNativeCameraClass::kuSaveImage(std::string filePath)
@@ -378,6 +383,17 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuLoadImage(std::
 		return false;
 }
 
+bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuLoadProcessingImage(std::string filePath)
+{
+	m_OriginalCameraFrame = cv::imread(filePath, 1);
+	cv::resize(m_OriginalCameraFrame, m_OriginalCameraFrame, cv::Size(1280, 720));
+
+	if (!m_OriginalCameraFrame.empty())
+		return true;
+	else
+		return false;
+}
+
 void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuSaveImage(std::string filePath)
 {
 	cv::imwrite(filePath, m_TestImage);
@@ -495,6 +511,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 	file << "Camera frame resize to quarter done." << std::endl;
 #endif
 
+#ifdef ShowDebugImage
+	cv::imshow("Quarter Image", colorImgQuarter);
+#endif
+
 	faceContourRegionImg = cv::Mat::zeros(displayImg.rows, displayImg.cols, CV_8UC3);
 	m_UpdatedHSVImg		 = cv::Mat::zeros(displayImg.rows, displayImg.cols, CV_8UC3);
 
@@ -502,6 +522,10 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 #ifdef ShowDebugLog
 	file << "Camera frame HSV conversion done." << std::endl;
+#endif
+
+#ifdef ShowDebugImage
+	cv::imshow("Camera HSV Image", m_UpdatedHSVImg);
 #endif
 
 	#pragma region // Detect faces //
@@ -588,6 +612,11 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		int originalFaceCenterX = 0.5 * ResizeScale * ((int)abs(faces[maxAreaFaceIdx].left() + faces[maxAreaFaceIdx].right()));
 		int originalFaceCenterY = 0.5 * ResizeScale * ((int)abs(faces[maxAreaFaceIdx].top() + faces[maxAreaFaceIdx].bottom()));
 
+#ifdef ShowDebugLog
+		file << originalFaceWidth << ", " << originalFaceWidth << " | "
+			 << originalFaceCenterX << ", " << originalFaceCenterY << std::endl;
+#endif
+
 		cv::Point2f faceCenter = cv::Point2f(originalFaceCenterX, originalFaceCenterY);
 
 		#pragma region // Crop indent ROI image //
@@ -596,6 +625,12 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		indentROI = cv::Rect(indentTLPt.x, indentTLPt.y, abs(indentBRPt.x - indentTLPt.x), abs(indentBRPt.y - indentTLPt.y));
 		indentROIImg = m_OriginalCameraFrame(indentROI);
 
+#ifdef ShowDebugLog
+		file << "Crop indent ROI done." << std::endl;
+		file << "Indent ROI: " << indentROI.x << ", " << indentROI.y << " | "
+			 << indentROI.width << " x " << indentROI.height << std::endl;
+#endif
+
 		cv::Mat indentROIImgHSV;
 		cv::cvtColor(indentROIImg, indentROIImgHSV, CV_BGR2HSV);
 		//CalculateHistogramYCrCb(indentROIImgYCrCb);
@@ -603,7 +638,7 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 
 		//cv::imwrite("TestImage_IndentROIImage.bmp", indentROIImg);
 #ifdef ShowDebugImage
-		cv::imshow("Indent ROI Image", indentROIImg);
+		cv::imshow("Indent ROI Image color conversion done", indentROIImg);
 #endif
 
 #ifdef ShowDebugLog
@@ -712,27 +747,41 @@ bool kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::kuGenerateHairMas
 		#pragma endregion
 
 		#pragma region // Extract skin color model //
-		cv::Mat foreheadROIImg = paddingROIImg(cv::Rect(foreheadRegionTLPoint, foreheadRegionBRPoint));
-		cv::Mat chinROIImg = paddingROIImg(cv::Rect(chinRegionTLPoint, chinRegionBRPoint));
+		//cv::Mat foreheadROIImg = paddingROIImg(cv::Rect(foreheadRegionTLPoint, foreheadRegionBRPoint));
+		//cv::Mat chinROIImg = paddingROIImg(cv::Rect(chinRegionTLPoint, chinRegionBRPoint));
 		cv::Mat foreheadROIHSVImg;
 		cv::Mat foreheadROIYCrCbImg;
 		cv::Mat chinROIHSVImg;
 
+#ifdef ShowDebugLog
+		file << "Extract foreheadROIImg and chinROIImg done." << std::endl;
+#endif
+
 		cv::cvtColor(paddingROIImg, paddingROIHSVImg, CV_BGR2HSV);
 		cv::cvtColor(indentROIImg, indentROIHSVImg, CV_BGR2HSV);
 
-		cv::cvtColor(foreheadROIImg, foreheadROIHSVImg, CV_BGR2HSV);
-		cv::cvtColor(chinROIImg, chinROIHSVImg, CV_BGR2HSV);
+		//cv::cvtColor(foreheadROIImg, foreheadROIHSVImg, CV_BGR2HSV);
+		//cv::cvtColor(chinROIImg, chinROIHSVImg, CV_BGR2HSV);
+
+#ifdef ShowDebugLog
+		file << "Color conversion in color model done." << std::endl;
+		file << indentROIImgHSV.cols << " x " << indentROIImgHSV.rows << std::endl;
+#endif
 
 #ifdef ShowDebugImage
 		cv::imshow("paddingROIHSVImg", paddingROIHSVImg);
-		cv::imshow("chinROIHSVImg", chinROIHSVImg);
+		//cv::imshow("chinROIHSVImg", chinROIHSVImg);
+		cv::imwrite("indentROIImgHSV.bmp", indentROIImgHSV);
 #endif
 
 		CalculateRegionMeanAndSTD(indentROIImgHSV, SkinHMean, SkinHStd, SkinSMean, SkinSStd, SkinVMean, SkinVStd);
-		CalculateRegionMeanAndSTD(chinROIHSVImg, chinHMean, chinHStd, chinSMean, chinSStd, chinVMean, chinVStd);
-		CalculateRegionMeanAndSTD(foreheadROIHSVImg, foreheadHMean, foreheadHStd, foreheadSMean, foreheadSStd, foreheadVMean, foreheadSStd);
+		//CalculateRegionMeanAndSTD(chinROIHSVImg, chinHMean, chinHStd, chinSMean, chinSStd, chinVMean, chinVStd);
+		//CalculateRegionMeanAndSTD(foreheadROIHSVImg, foreheadHMean, foreheadHStd, foreheadSMean, foreheadSStd, foreheadVMean, foreheadSStd);
 		
+#ifdef ShowDebugLog
+		file << "CalculateRegionMeanAndSTD in skio color model done." << std::endl;
+#endif
+
 #ifdef ShowDebugLog
 		file << "Skin color model extraction done." << std::endl;
 #endif
@@ -1072,6 +1121,9 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculateRegionMe
 {
 	if (!faceYCrCbImg.empty())
 	{
+		std::fstream file;
+		file.open("CalculateRegionMeanAndSTD.txt", std::ios::out);
+
 		double	ySum = 0, crSum = 0, cbSum = 0;
 		double	ySqSum = 0, crSqSum = 0, cbSqSum = 0;
 		int		pixelNum = faceYCrCbImg.rows * faceYCrCbImg.cols;
@@ -1099,6 +1151,8 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculateRegionMe
 		CalculatePathChannelSum(faceYCrCbImg, ySum, crSum, cbSum, ySqSum, crSqSum, cbSqSum);
 		//std::cout << ySum << ", " << crSum << ", " << cbSum << " | " << ySqSum << ", " << cbSqSum << ", " << crSqSum << std::endl;
 
+		file << "CalculatePathChannelSum done." << std::endl;
+
 		yMean = (double)ySum / (double)pixelNum;
 		crMean = (double)crSum / (double)pixelNum;
 		cbMean = (double)cbSum / (double)pixelNum;
@@ -1120,6 +1174,8 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculateRegionMe
 		YStd = sqrt(yStd);
 		CrStd = sqrt(crStd);
 		CbStd = sqrt(cbStd);
+
+		file.close();
 	}
 	else
 	{
@@ -1135,6 +1191,9 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculateRegionMe
 
 void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculatePathChannelSum(cv::Mat patchImg, double & sumA, double & sumB, double & sumC, double & sqSumA, double & sqSumB, double & sqSumC)
 {
+	std::fstream file;
+	file.open("CalculatePathChannelSum.txt", std::ios::out);
+
 	double sumY = 0, sumCr = 0, sumCb = 0;
 	double sqSumY = 0, sqSumCr = 0, sqSumCb = 0;
 
@@ -1163,6 +1222,9 @@ void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::CalculatePathChan
 	sqSumA = sqSumY;
 	sqSumB = sqSumCr;
 	sqSumC = sqSumCb;
+
+	file << "In CalculatePathChannelSum done." << std::endl;
+	file.close();
 }
 
 void kuOpenCVNativeCameraClass::kuOpenCVNativeCameraClassImpl::GrabCutExtractOriginalForeground(cv::Mat maskImg, cv::Mat originalImg, cv::Point tlPtInOri, cv::Mat & foregroundImg)
