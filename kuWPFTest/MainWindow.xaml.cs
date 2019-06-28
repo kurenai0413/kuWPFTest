@@ -33,6 +33,8 @@ namespace kuWPFTest
 
         bool    m_isHairMaskGenerated = false;
 
+        bool    SingleImageButtonClicked = false;
+
         kuOpenCVCameraClassWrapper wrapperObj = new kuOpenCVCameraClassWrapper();
         
         public MainWindow()
@@ -214,25 +216,29 @@ namespace kuWPFTest
 
         private void ProcessingSingleImageButton_Click(object sender, RoutedEventArgs e)
         {
+            ProcessingSingleImageButton.IsEnabled = false;
+
             if (IsCameraOpened)
             {
                 IsCameraOpened = false;
-
+            
                 wrapperObj.kuCloseCamera();
             }
-
+            
             wrapperObj.kuLoadProcessingImage("UniColor_Peggy_A2.jpg");
             wrapperObj.kuShowProcessedImage();
-
+            
             IsCameraOpened = false;
-
+            
             wrapperObj.kuSetHairHueColor(m_HairHueValue);
             m_isHairMaskGenerated = wrapperObj.kuGenerateHairMask();
-
+            
             if (m_isHairMaskGenerated)
             {
                 wrapperObj.kuChangeHairColor();
             }
+
+            ProcessingSingleImageButton.IsEnabled = true;
         }
     }
 }

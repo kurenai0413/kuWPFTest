@@ -36,6 +36,9 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>UniColor_Logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -108,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\UniColor_Logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UniColor_Logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
